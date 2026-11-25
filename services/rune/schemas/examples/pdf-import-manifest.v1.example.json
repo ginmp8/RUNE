@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-07-27T20:00:00Z",
+  "imports": [
+    {
+      "importId": "0123456789abcdef",
+      "resourcePath": "parts/source.pdf",
+      "requestedMode": "native-page",
+      "appliedMode": "visual",
+      "fallbackReason": "unsupported-object-stream",
+      "policies": {
+        "signatures": "reject",
+        "forms": "flatten",
+        "annotations": {
+          "links": "preserve",
+          "comments": "flatten",
+          "attachments": "reject"
+        },
+        "javascript": "remove",
+        "fallback": "visual"
+      },
+      "detected": {
+        "signatures": false,
+        "forms": false,
+        "javascript": false,
+        "attachments": false,
+        "comments": false
+      },
+      "pages": [
+        {
+          "sourcePage": 1,
+          "outputPage": 2,
+          "widthPoints": 612,
+          "heightPoints": 792,
+          "rotation": 0,
+          "mediaBox": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "cropBox": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "trimBox": null,
+          "bleedBox": null,
+          "preservedLinkCount": 1
+        }
+      ],
+      "warnings": [
+        "Native import was not supported; visual fallback was applied."
+      ]
+    }
+  ]
+}

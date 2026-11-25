@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>Rune.RenderProcessing</RootNamespace></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../engine/Rune.Browser/Rune.Browser.csproj" />
+    <ProjectReference Include="../../import/Rune.Pdf/Rune.Pdf.csproj" />
+    <ProjectReference Include="../../contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+    <ProjectReference Include="../../contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+    <ProjectReference Include="../../abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="../../abstractions/Rune.Storage.Abstractions/Rune.Storage.Abstractions.csproj" />
+  </ItemGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App" /></ItemGroup>
+</Project>

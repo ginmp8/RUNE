@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/pdf-import-manifest.v1.schema.json",
+  "title": "RUNE PDF import manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "imports"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "imports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "importId",
+          "resourcePath",
+          "requestedMode",
+          "appliedMode",
+          "fallbackReason",
+          "policies",
+          "detected",
+          "pages",
+          "warnings"
+        ],
+        "properties": {
+          "importId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$"
+          },
+          "resourcePath": {
+            "type": "string"
+          },
+          "requestedMode": {
+            "const": "native-page"
+          },
+          "appliedMode": {
+            "enum": [
+              "native-page",
+              "visual"
+            ]
+          },
+          "fallbackReason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "policies": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "signatures",
+              "forms",
+              "annotations",
+              "javascript",
+              "fallback"
+            ],
+            "properties": {
+              "signatures": {
+                "enum": [
+                  "reject",
+                  "flatten",
+                  "ignore"
+                ]
+              },
+              "forms": {
+                "enum": [
+                  "flatten",
+                  "reject"
+                ]
+              },
+              "annotations": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "links",
+                  "comments",
+                  "attachments"
+                ],
+                "properties": {
+                  "links": {
+                    "enum": [
+                      "preserve",
+                      "remove"
+                    ]
+                  },
+                  "comments": {
+                    "enum": [
+                      "flatten",
+                      "reject",
+                      "remove"
+                    ]
+                  },
+                  "attachments": {
+                    "enum": [
+                      "reject",
+                      "remove"
+                    ]
+                  }
+                }
+              },
+              "javascript": {
+                "enum": [
+                  "remove",
+                  "reject"
+                ]
+              },
+              "fallback": {
+                "enum": [
+                  "visual",
+                  "reject"
+                ]
+              }
+            }
+          },
+          "detected": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "signatures",
+              "forms",
+              "javascript",
+              "attachments",
+              "comments"
+            ],
+            "properties": {
+              "signatures": {
+                "type": "boolean"
+              },
+              "forms": {
+                "type": "boolean"
+              },
+              "javascript": {
+                "type": "boolean"
+              },
+              "attachments": {
+                "type": "boolean"
+              },
+              "comments": {
+                "type": "boolean"
+              }
+            }
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sourcePage",
+                "outputPage",
+                "widthPoints",
+                "heightPoints",
+                "rotation",
+                "mediaBox",
+                "cropBox",
+                "trimBox",
+                "bleedBox",
+                "preservedLinkCount"
+              ],
+              "properties": {
+                "sourcePage": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "outputPage": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 1
+                },
+                "widthPoints": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "heightPoints": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "rotation": {
+                  "enum": [
+                    0,
+                    90,
+                    180,
+                    270
+                  ]
+                },
+                "mediaBox": {
+                  "$ref": "#/$defs/box"
+                },
+                "cropBox": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/box"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "trimBox": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/box"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bleedBox": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/box"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "preservedLinkCount": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "box": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}

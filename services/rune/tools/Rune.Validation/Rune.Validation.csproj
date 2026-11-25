@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Rune.Validation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/engine/Rune.Core/Rune.Core.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Ownership/Rune.Ownership.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.ReactFlow/Rune.ReactFlow.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Rendering/Rune.Rendering.csproj" />
+    <ProjectReference Include="../../src/application/Rune.Application/Rune.Application.csproj" />
+    <ProjectReference Include="../../src/application/Rune.Jobs/Rune.Jobs.csproj" />
+    <ProjectReference Include="../../src/contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+    <ProjectReference Include="../../sdk/dotnet/Rune.Client/Rune.Client.csproj" />
+  </ItemGroup>
+</Project>

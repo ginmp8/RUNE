@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/artifact-comparison.v1.schema.json",
+  "title": "RUNE artifact comparison v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "left",
+    "right"
+  ],
+  "properties": {
+    "left": {
+      "$ref": "#/$defs/input"
+    },
+    "right": {
+      "$ref": "#/$defs/input"
+    },
+    "normalizeText": {
+      "type": "boolean",
+      "default": true
+    },
+    "includeByteRanges": {
+      "type": "boolean",
+      "default": true
+    },
+    "maximumReportedRanges": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000,
+      "default": 100
+    },
+    "advanced": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pixelComparison": {
+          "type": "boolean",
+          "default": false
+        },
+        "ocrComparison": {
+          "type": "boolean",
+          "default": false
+        },
+        "canonicalizePdf": {
+          "type": "boolean",
+          "default": false
+        },
+        "pixelTolerancePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "maximumPixelMismatchRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "minimumOcrSimilarity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 1
+        },
+        "rasterDpi": {
+          "type": "integer",
+          "minimum": 36,
+          "maximum": 600,
+          "default": 144
+        },
+        "ocrLanguage": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_+-]{1,32}$",
+          "default": "eng"
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "default": 30
+        },
+        "includePixelDiff": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "contentBase64"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "contentBase64": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "maxLength": 140000000
+        },
+        "contentType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        }
+      }
+    }
+  }
+}

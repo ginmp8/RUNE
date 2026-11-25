@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Messaging.Nats</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../../services/rune/src/abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="../../../../services/rune/src/contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NATS.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

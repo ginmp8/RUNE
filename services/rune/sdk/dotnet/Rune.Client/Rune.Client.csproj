@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Client</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/contracts/Rune.Api.Contracts/Rune.Api.Contracts.csproj" />
+    <ProjectReference Include="../../../src/contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+    <ProjectReference Include="../../../src/engine/Rune.Core/Rune.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

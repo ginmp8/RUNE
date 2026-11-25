@@ -1,0 +1,183 @@
+name: rune
+
+x-rune-app: &rune-app
+  restart: unless-stopped
+  init: true
+  stop_signal: SIGTERM
+  stop_grace_period: 90s
+  networks:
+    - rune
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  storage:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: services/rune/infra/volume-keeper/Dockerfile
+    environment:
+      RUNE_VOLUME_PATH: /data
+    volumes:
+      - rune-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "test -d /data && test -w /data && test \"$(stat -c %u /data)\" = 10001"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+      start_period: 2s
+
+  cache:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: services/rune/infra/volume-keeper/Dockerfile
+    environment:
+      RUNE_VOLUME_PATH: /cache
+    volumes:
+      - rune-cache:/cache
+    healthcheck:
+      test: ["CMD-SHELL", "test -d /cache && test -w /cache && test \"$(stat -c %u /cache)\" = 10001"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+      start_period: 2s
+
+  nats:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: messaging/nats/server/Dockerfile
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - nats-data:/data
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8222/healthz?js-enabled-only=true"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+  rune-api:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: services/rune/apps/rune-api/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      NATS_URL: nats://nats:4222
+      RUNE_DISPATCH_PROVIDER: nats
+      RUNE_DATA_ROOT: /data
+      RUNE_RENDER_CACHE_ROOT: /cache
+      TMPDIR: /tmp/rune
+    ports:
+      - "8080:8080"
+    volumes:
+      - rune-data:/data
+      - rune-cache:/cache
+    tmpfs:
+      - /tmp/rune:size=256m,uid=10001,gid=10001,mode=0770
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          curl --fail --silent http://localhost:8080/health >/dev/null
+          && nc -z nats 4222
+          && test -w /data
+          && test -w /cache
+          && test -w /tmp/rune
+      interval: 5s
+      timeout: 4s
+      retries: 30
+      start_period: 10s
+    depends_on:
+      storage:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
+  rune-worker:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: services/rune/apps/rune-worker/Dockerfile
+    environment:
+      NATS_URL: nats://nats:4222
+      RUNE_DATA_ROOT: /data
+      RUNE_RENDER_CACHE_ROOT: /cache
+      RUNE_BROWSER_CONCURRENCY: "1"
+      RUNE_NATS_ACK_WAIT_SECONDS: "30"
+      RUNE_NATS_NAK_DELAY_SECONDS: "2"
+      RUNE_JOB_LEASE_SECONDS: "30"
+      TMPDIR: /tmp/rune
+    volumes:
+      - rune-data:/data
+      - rune-cache:/cache
+    tmpfs:
+      - /tmp/rune:size=512m,uid=10001,gid=10001,mode=0770
+    shm_size: 1gb
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          pgrep -f 'dotnet Rune.Worker.dll' >/dev/null
+          && nc -z nats 4222
+          && test -w /data
+          && test -w /cache
+          && test -w /tmp/rune
+          && command -v gs >/dev/null
+          && command -v tesseract >/dev/null
+          && fc-match sans >/dev/null
+          && test -r /usr/share/color/icc/ghostscript/srgb.icc
+          && test -n "$(find /ms-playwright -type f -name chrome -perm -111 -print -quit)"
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    depends_on:
+      storage:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
+  rune-studio:
+    <<: *rune-app
+    build:
+      context: .
+      dockerfile: services/rune/apps/rune-studio/Dockerfile
+    environment:
+      RUNE_API_URL: http://rune-api:8080
+      TMPDIR: /tmp/rune
+    ports:
+      - "8501:8501"
+    tmpfs:
+      - /tmp/rune:size=128m,uid=10001,gid=10001,mode=0770
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import pathlib,urllib.request; p=pathlib.Path('/tmp/rune/health'); p.write_text('ok'); p.unlink(); urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=2).read(); urllib.request.urlopen('http://rune-api:8080/health', timeout=2).read()"
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+    depends_on:
+      rune-api:
+        condition: service_healthy
+
+volumes:
+  rune-data:
+  rune-cache:
+  nats-data:
+
+networks:
+  rune:
+    driver: bridge

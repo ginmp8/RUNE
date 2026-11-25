@@ -1,0 +1,436 @@
+[
+  {
+    "id": "basic-structure",
+    "kind": "render",
+    "markdown": "# Title\n\nParagraph.  \nNew line.\n\n---\n\nSubtitle\n--------",
+    "contains": [
+      "<h1",
+      "<p>",
+      "<br",
+      "<hr",
+      "<h2"
+    ]
+  },
+  {
+    "id": "text-formatting",
+    "kind": "render",
+    "markdown": "**strong** *emphasis* ~~removed~~ ==mark== H~2~O x^2^ ++ctrl+c++",
+    "contains": [
+      "<strong>",
+      "<em>",
+      "<del>",
+      "<mark>",
+      "<sub>",
+      "<sup>",
+      "<kbd>"
+    ]
+  },
+  {
+    "id": "characters-and-emoji",
+    "kind": "render",
+    "markdown": "\\\\*literal\\\\* :rocket: (c) -->",
+    "contains": [
+      "literal"
+    ],
+    "containsAny": [
+      "🚀",
+      "rocket"
+    ]
+  },
+  {
+    "id": "links-and-anchors",
+    "kind": "render",
+    "markdown": "[Site](https://example.com \"Example\")\n\n<user@example.com>\n\n## Section {#section}",
+    "contains": [
+      "href=\"https://example.com\"",
+      "mailto:user@example.com",
+      "id=\"section\""
+    ]
+  },
+  {
+    "id": "images-and-media",
+    "kind": "render",
+    "markdown": "![Description](image.png \"Title\")\n\n<audio controls src=\"sound.mp3\"></audio>\n<video controls src=\"video.mp4\"></video>",
+    "contains": [
+      "<img",
+      "alt=\"Description\"",
+      "<audio",
+      "<video"
+    ]
+  },
+  {
+    "id": "lists",
+    "kind": "render",
+    "markdown": "- item\n  - nested\n\n1. first\n2. second\n\n- [x] done\n- [ ] pending\n\nTerm\n: Definition",
+    "contains": [
+      "<ul",
+      "<ol",
+      "task-list",
+      "<dl>",
+      "<dt>",
+      "<dd>"
+    ]
+  },
+  {
+    "id": "quotes",
+    "kind": "render",
+    "markdown": "> Quote\n>\n> > Nested\n\n<cite>Source</cite> <q>excerpt</q>",
+    "contains": [
+      "<blockquote>",
+      "<cite>",
+      "<q>"
+    ]
+  },
+  {
+    "id": "code",
+    "kind": "render",
+    "markdown": "Inline `x = 1`.\n\n```python title=\"app.py\" linenums=\"1\" hl_lines=\"2\"\nprint(\"a\")\nprint(\"b\")\n```",
+    "contains": [
+      "<code>",
+      "highlight",
+      "python"
+    ]
+  },
+  {
+    "id": "tables",
+    "kind": "render",
+    "markdown": "| Name | Value |\n|:--|--:|\n| API | 100 |\n\n<table><tr><th scope=\"col\">A</th><td rowspan=\"2\">B</td></tr></table>",
+    "contains": [
+      "<table",
+      "<th",
+      "<td",
+      "rowspan=\"2\""
+    ]
+  },
+  {
+    "id": "footnotes-and-abbreviations",
+    "kind": "render",
+    "markdown": "Text with note.[^n]\n\n[^n]: Content.\n\n*[API]: Application Programming Interface\n\nAPI",
+    "contains": [
+      "footnote",
+      "<abbr",
+      "Application Programming Interface"
+    ]
+  },
+  {
+    "id": "front-matter",
+    "kind": "metadata",
+    "markdown": "---\ntitle: Document\nauthor: Author\ntoc: true\n---\n# Body",
+    "metadata": {
+      "title": "Document",
+      "author": "Author",
+      "toc": "true"
+    }
+  },
+  {
+    "id": "toc-and-numbering",
+    "kind": "render",
+    "markdown": "# One\n\n## Two",
+    "options": {
+      "includeToc": true,
+      "numberHeadings": true
+    },
+    "contains": [
+      "class=\"toc\"",
+      "href=\"#one\"",
+      "id=\"one\"",
+      "section-number"
+    ]
+  },
+  {
+    "id": "alerts-and-callouts",
+    "kind": "render",
+    "markdown": "> [!WARNING] Attention\n> Content\n\n!!! note \"Note\"\n    Text",
+    "contains": [
+      "admonition",
+      "warning",
+      "note"
+    ]
+  },
+  {
+    "id": "tabs-and-details",
+    "kind": "render",
+    "markdown": "=== \"A\"\n\n    Content A\n\n=== \"B\"\n\n    Content B\n\n<details><summary>More</summary>Text</details>",
+    "contains": [
+      "tabbed-set",
+      "<details>",
+      "<summary>"
+    ]
+  },
+  {
+    "id": "attributes-and-html",
+    "kind": "render",
+    "markdown": "## Title {#custom .class-name}\n\n<span class=\"x\" aria-label=\"label\" style=\"color: red\">text</span>",
+    "contains": [
+      "id=\"custom\"",
+      "class=\"class-name\"",
+      "aria-label=\"label\"",
+      "color"
+    ]
+  },
+  {
+    "id": "includes",
+    "kind": "render",
+    "markdown": "--8<-- \"snippets/section.md#included\"",
+    "resources": {
+      "docs/snippets/section.md": "# Ignore\n\n## Included\n\nLocal content.\n\n## End"
+    },
+    "documentName": "docs/document.md",
+    "contains": [
+      "Included",
+      "Local content"
+    ],
+    "notContains": [
+      "Ignore"
+    ]
+  },
+  {
+    "id": "github-compatibility",
+    "kind": "render",
+    "markdown": "---\ngithub-references: true\ngithub-repository: owner/repo\n---\n- [x] task\n\n> [!NOTE]\n> note\n\nSee #123 and @octocat.",
+    "contains": [
+      "task-list",
+      "admonition",
+      "https://github.com/owner/repo/issues/123",
+      "https://github.com/octocat"
+    ]
+  },
+  {
+    "id": "obsidian-compatibility",
+    "kind": "render",
+    "markdown": "[[Internal document|Label]]\n\n> [!TIP]+ Tip\n> Content",
+    "contains": [
+      "Label",
+      "admonition",
+      "tip"
+    ]
+  },
+  {
+    "id": "mkdocs-compatibility",
+    "kind": "render",
+    "markdown": "!!! warning \"Title\"\n    Content\n\n--8<-- \"snippet.md\"",
+    "resources": {
+      "snippet.md": "Included text"
+    },
+    "contains": [
+      "admonition",
+      "warning",
+      "Included text"
+    ]
+  },
+  {
+    "id": "pandoc-compatibility",
+    "kind": "render",
+    "markdown": "::: {.box #identity}\nContent\n:::\n\nInline note.^[Note content]",
+    "contains": [
+      "id=\"identity\"",
+      "class=\"box\"",
+      "footnote"
+    ]
+  },
+  {
+    "id": "katex-math",
+    "kind": "render",
+    "markdown": "Inline: $E=mc^2$\n\n$$x^2+y^2=z^2$$",
+    "contains": [
+      "rune-math"
+    ]
+  },
+  {
+    "id": "mermaid",
+    "kind": "render",
+    "markdown": "```mermaid\nflowchart LR\nA-->B\n```",
+    "contains": [
+      "class=\"mermaid",
+      "flowchart LR"
+    ]
+  },
+  {
+    "id": "schematex-and-orgchart",
+    "kind": "render",
+    "markdown": "```orgchart\nceo: \"Ana\" | \"CEO\"\n```\n\n```schematex\norgchart \"Team\"\nceo: \"Ana\" | \"CEO\"\n```",
+    "contains": [
+      "schematex-orgchart",
+      "data-kind=\"schematex\""
+    ]
+  },
+  {
+    "id": "ownership-chart",
+    "kind": "render",
+    "markdown": "```ownership-chart\nchart \"Acme\" [validation=partial, showIndirect=true]\nentity founder \"Founder\" person@BR\nentity holding \"Holding\" company@BR\nfounder -> holding : 100%\n```",
+    "contains": [
+      "data-ownership-payload",
+      "ownership-chart",
+      "data-render-state=\"pending\""
+    ]
+  },
+  {
+    "id": "maps",
+    "kind": "render",
+    "markdown": "```geojson\n{\"type\":\"FeatureCollection\",\"features\":[]}\n```\n\n```topojson\n{\"type\":\"Topology\",\"objects\":{},\"arcs\":[]}\n```",
+    "contains": [
+      "diagram-geojson",
+      "diagram-topojson"
+    ]
+  },
+  {
+    "id": "charts",
+    "kind": "render",
+    "markdown": "```chart\n{\"type\":\"bar\",\"labels\":[\"A\"],\"values\":[1]}\n```",
+    "contains": [
+      "diagram-chart"
+    ]
+  },
+  {
+    "id": "stl",
+    "kind": "render",
+    "markdown": "```stl\nsolid x\nendsolid x\n```",
+    "contains": [
+      "diagram-stl"
+    ]
+  },
+  {
+    "id": "data-tables",
+    "kind": "render",
+    "markdown": "```csv-table\nName,Value\nAPI,100\n```\n\n```json-table\n[{\"Name\":\"Worker\",\"Value\":50}]\n```",
+    "contains": [
+      "<table",
+      "API",
+      "Worker"
+    ]
+  },
+  {
+    "id": "preserved-diagrams",
+    "kind": "render",
+    "markdown": "```plantuml\nAlice -> Bob\n```\n\n```dot\ndigraph G { A -> B }\n```",
+    "contains": [
+      "diagram-source-only",
+      "diagram-plantuml",
+      "diagram-dot"
+    ]
+  },
+  {
+    "id": "conditional-content-and-page-breaks",
+    "kind": "render",
+    "markdown": "<!-- html-only -->HTML<!-- /html-only -->\n<!-- pdf-only -->PDF<!-- /pdf-only -->\n\n\\pagebreak",
+    "contains": [
+      "rune-html-only",
+      "rune-pdf-only",
+      ">HTML<",
+      ">PDF<",
+      "page-break"
+    ]
+  },
+  {
+    "id": "cover-metadata",
+    "kind": "render",
+    "markdown": "---\ntitle: Report\nsubtitle: Quarterly review\nauthor: RUNE\norganization: Example Inc.\nversion: 3\nstatus: Draft\ndescription: Description\ndate: 2026-07-25\ninclude-cover: true\n---\n# Body",
+    "contains": [
+      "document-cover",
+      "Quarterly review",
+      "Example Inc.",
+      "Version 3",
+      "Draft",
+      "Description"
+    ]
+  },
+  {
+    "id": "header-and-footer",
+    "kind": "asset",
+    "paths": [
+      "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+    ],
+    "contains": [
+      "HeaderTemplate",
+      "FooterTemplate",
+      "DisplayHeaderFooter"
+    ]
+  },
+  {
+    "id": "themes-and-print-css",
+    "kind": "asset",
+    "paths": [
+      "services/rune/assets/styles/base.css",
+      "services/rune/assets/styles/professional.css",
+      "services/rune/assets/styles/minimal.css",
+      "services/rune/assets/styles/dark.css"
+    ],
+    "contains": [
+      "@media print"
+    ]
+  },
+  {
+    "id": "preview-readiness",
+    "kind": "asset",
+    "paths": [
+      "services/rune/assets/runtime/readiness.js",
+      "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs",
+      "services/rune/apps/rune-studio/app.py"
+    ],
+    "contains": [
+      "__RUNE_RENDER_DONE__",
+      "__RUNE_ASSERT_READY__",
+      "Update preview"
+    ]
+  },
+  {
+    "id": "resource-security",
+    "kind": "render",
+    "markdown": "<script>alert(1)</script>\n<a href=\"javascript:alert(1)\" onclick=\"x()\">bad</a>\n<img src=\"data:image/png;base64,AA==\" alt=\"ok\">",
+    "contains": [
+      "alt=\"ok\""
+    ],
+    "notContains": [
+      "alert(1)",
+      "href=\"javascript:",
+      "onclick=\""
+    ]
+  },
+  {
+    "id": "accessibility",
+    "kind": "asset",
+    "paths": [
+      "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs",
+      "services/rune/src/engine/Rune.Rendering/HtmlDocumentRenderer.cs",
+      "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+    ],
+    "contains": [
+      "Tagged",
+      "Outline",
+      "lang=\"",
+      "RenderDiagnostic"
+    ]
+  },
+  {
+    "id": "download-flow",
+    "kind": "asset",
+    "paths": [
+      "services/rune/apps/rune-studio/app.py"
+    ],
+    "contains": [
+      "Generate export",
+      "download_button",
+      "last_export",
+      "fingerprint"
+    ]
+  },
+  {
+    "id": "reactflow-stable-svg",
+    "kind": "asset",
+    "paths": [
+      "services/rune/assets/reactflow/reactflow-renderer.js",
+      "services/rune/assets/reactflow/reactflow.css"
+    ],
+    "contains": [
+      "for (const [diagramIndex, node] of nodes.entries())",
+      "renderDocument(node, diagramIndex)",
+      "rf-arrow-${diagramIndex}",
+      "window.MarkdownPdfReactFlow"
+    ],
+    "notContains": [
+      "ReactDOM.createRoot",
+      "ReactFlowProvider",
+      "@xyflow/react"
+    ]
+  }
+]

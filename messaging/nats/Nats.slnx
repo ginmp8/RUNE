@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Rune.Messaging.Nats/Rune.Messaging.Nats.csproj" />
+  <Project Path="tests/Rune.Messaging.Nats.Tests/Rune.Messaging.Nats.Tests.csproj" />
+</Solution>

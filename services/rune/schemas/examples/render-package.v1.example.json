@@ -1,0 +1,14 @@
+{
+  "renderId": "4d808e72-7076-4414-9d0f-a4abef11b727",
+  "html": "<!doctype html><html><body><h1>RUNE</h1></body></html>",
+  "outputFormat": "pdf",
+  "options": {
+    "theme": "professional",
+    "pageSize": "A4"
+  },
+  "contentHash": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "createdAt": "2026-07-25T20:00:00Z",
+  "documentModel": null,
+  "contractVersion": "1.0",
+  "sourceType": "html"
+}

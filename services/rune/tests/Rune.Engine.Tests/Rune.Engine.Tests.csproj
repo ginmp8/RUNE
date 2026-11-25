@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>Rune.Engine.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/engine/Rune.Markdown/Rune.Markdown.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Html/Rune.Html.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Rendering/Rune.Rendering.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Ownership/Rune.Ownership.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.ReactFlow/Rune.ReactFlow.csproj" />
+    <ProjectReference Include="../../src/application/Rune.Application/Rune.Application.csproj" />
+    <ProjectReference Include="../../src/application/Rune.Jobs/Rune.Jobs.csproj" />
+    <ProjectReference Include="../../src/application/Rune.RenderProcessing/Rune.RenderProcessing.csproj" />
+    <ProjectReference Include="../../src/contracts/Rune.Api.Contracts/Rune.Api.Contracts.csproj" />
+    <ProjectReference Include="../../src/abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="../../sdk/dotnet/Rune.Client/Rune.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

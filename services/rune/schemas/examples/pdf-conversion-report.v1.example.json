@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.1",
+  "sourceSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "sourceBytes": 1024,
+  "pdfVersion": "1.7",
+  "pageCount": 1,
+  "encrypted": true,
+  "requestedMode": "hybrid",
+  "effectiveMode": "hybrid",
+  "ocrMode": "auto",
+  "ocrLanguage": "eng",
+  "engines": [
+    {
+      "name": "PdfLexer",
+      "version": "0.1.27",
+      "license": "MIT",
+      "role": "structure-text-links-and-images"
+    },
+    {
+      "name": "Docnet.Core/PDFium",
+      "version": "2.6.0",
+      "license": "MIT package metadata; bundled PDFium notices retained",
+      "role": "visual-page-rendering"
+    },
+    {
+      "name": "Tesseract",
+      "version": "5.5.0",
+      "license": "Apache-2.0",
+      "role": "optical-character-recognition"
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "widthPoints": 612,
+      "heightPoints": 792,
+      "rotation": 0,
+      "strategy": "ocr-visual-text",
+      "confidence": 0.8,
+      "fallback": true,
+      "fallbackReason": "no-reliable-text-layer",
+      "wordCount": 12,
+      "imageCount": 1,
+      "linkCount": 1
+    }
+  ],
+  "extractedArtifacts": [
+    {
+      "fileName": "page-001-image-001.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 256,
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "page": 1
+    }
+  ],
+  "warnings": [],
+  "outputBytes": 2048,
+  "durationMilliseconds": 10,
+  "atomicPublication": true
+}

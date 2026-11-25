@@ -1,0 +1,23 @@
+{
+  "mode": "native-page",
+  "ocrMode": "auto",
+  "ocrLanguage": "eng",
+  "password": null,
+  "semanticConfidenceThreshold": 0.65,
+  "maximumPages": 200,
+  "maximumSourceBytes": 25000000,
+  "maximumOutputBytes": 150000000,
+  "visualScale": 1.5,
+  "emitRegionDiagnostics": true,
+  "preserveLinks": true,
+  "extractImages": true,
+  "signatures": "reject",
+  "forms": "flatten",
+  "annotations": {
+    "links": "preserve",
+    "comments": "flatten",
+    "attachments": "reject"
+  },
+  "javascript": "remove",
+  "fallback": "visual"
+}

@@ -1,0 +1,8 @@
+{
+  "package": "katex",
+  "version": "0.18.1",
+  "sourceType": "npm-tarball",
+  "upstream": "https://registry.npmjs.org/katex/-/katex-0.18.1.tgz",
+  "archiveSha256": "7e6100b7fe6439ba91d918d8cb2873171a9fdec979281d508959cf5f7dba1da8",
+  "license": "MIT"
+}

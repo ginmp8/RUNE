@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Export.Pdf</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Rune.Core/Rune.Core.csproj" />
+    <ProjectReference Include="../../contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup><PackageReference Include="PDFsharp" /></ItemGroup>
+</Project>

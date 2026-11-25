@@ -1,0 +1,5 @@
+:root { --text: #e5e7eb; --muted: #aab4c4; --border: #3a4558; --surface: #202938; --accent: #60a5fa; --code-bg: #111827; }
+body { background: #111827; color: var(--text); }
+h1, h2, h3 { color: #f8fafc; }
+kbd { background: #283244; border-color: #58657a; color: #fff; }
+th { background: #202938; }

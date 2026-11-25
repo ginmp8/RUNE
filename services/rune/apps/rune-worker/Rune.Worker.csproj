@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Rune.Worker</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/application/Rune.Jobs/Rune.Jobs.csproj" />
+    <ProjectReference Include="../../src/application/Rune.RenderProcessing/Rune.RenderProcessing.csproj" />
+    <ProjectReference Include="../../src/import/Rune.Pdf/Rune.Pdf.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Browser/Rune.Browser.csproj" />
+    <ProjectReference Include="../../src/contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+    <ProjectReference Include="../../src/abstractions/Rune.Storage.Abstractions/Rune.Storage.Abstractions.csproj" />
+    <ProjectReference Include="../../../../messaging/nats/src/Rune.Messaging.Nats/Rune.Messaging.Nats.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Playwright" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

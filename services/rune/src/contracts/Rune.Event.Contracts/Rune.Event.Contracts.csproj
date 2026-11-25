@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Event.Contracts</RootNamespace>
+  </PropertyGroup>
+</Project>

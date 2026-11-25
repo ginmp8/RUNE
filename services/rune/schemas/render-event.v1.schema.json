@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-event.v1.schema.json",
+  "title": "RUNE render lifecycle event v1",
+  "allOf": [
+    {
+      "$ref": "#/$defs/base"
+    },
+    {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/requested"
+        },
+        {
+          "$ref": "#/$defs/started"
+        },
+        {
+          "$ref": "#/$defs/progressed"
+        },
+        {
+          "$ref": "#/$defs/completed"
+        },
+        {
+          "$ref": "#/$defs/failed"
+        },
+        {
+          "$ref": "#/$defs/cancelled"
+        },
+        {
+          "$ref": "#/$defs/deadLettered"
+        }
+      ]
+    }
+  ],
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "correlationId",
+        "schemaVersion",
+        "occurredAt"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "correlationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "causationId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "schemaVersion": {
+          "const": "1.0"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "headers": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "base": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "renderId"
+      ],
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "renderId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "requested": {
+      "required": [
+        "packagePath"
+      ],
+      "properties": {
+        "packagePath": {
+          "type": "string"
+        }
+      }
+    },
+    "started": {
+      "required": [
+        "attempt",
+        "workerId"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "workerId": {
+          "type": "string"
+        }
+      }
+    },
+    "progressed": {
+      "required": [
+        "percent",
+        "stage"
+      ],
+      "properties": {
+        "percent": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "stage": {
+          "type": "string"
+        }
+      }
+    },
+    "completed": {
+      "required": [
+        "resultPath",
+        "contentType",
+        "resultLength"
+      ],
+      "properties": {
+        "resultPath": {
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "resultLength": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "failed": {
+      "required": [
+        "attempt",
+        "error",
+        "willRetry"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "error": {
+          "type": "string"
+        },
+        "willRetry": {
+          "type": "boolean"
+        }
+      }
+    },
+    "cancelled": {
+      "required": [
+        "reason"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string"
+        }
+      },
+      "not": {
+        "required": [
+          "deadLetteredAt"
+        ]
+      }
+    },
+    "deadLettered": {
+      "required": [
+        "attempt",
+        "reason",
+        "deadLetteredAt"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reason": {
+          "type": "string"
+        },
+        "deadLetteredAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "engine": "rune-template-v1",
+  "engineVersion": "1.0",
+  "templateSha256": "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "dataSha256": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+  "schemaSha256": null,
+  "partialDigests": {},
+  "expandedSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "evaluationSteps": 12,
+  "loopIterations": 1,
+  "expandedBytes": 128,
+  "culture": "pt-BR",
+  "timeZone": "America/Sao_Paulo"
+}

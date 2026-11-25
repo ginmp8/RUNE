@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Markdown</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Rune.Core/Rune.Core.csproj" />
+    <ProjectReference Include="../Rune.Security/Rune.Security.csproj" />
+    <ProjectReference Include="../Rune.Ownership/Rune.Ownership.csproj" />
+    <ProjectReference Include="../Rune.ReactFlow/Rune.ReactFlow.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="YamlDotNet" />
+  </ItemGroup>
+</Project>

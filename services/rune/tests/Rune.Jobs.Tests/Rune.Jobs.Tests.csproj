@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>Rune.Jobs.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/application/Rune.Jobs/Rune.Jobs.csproj" />
+    <ProjectReference Include="../../src/application/Rune.Application/Rune.Application.csproj" />
+    <ProjectReference Include="../../src/contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+    <ProjectReference Include="../../src/abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

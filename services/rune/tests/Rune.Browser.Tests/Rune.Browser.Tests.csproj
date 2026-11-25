@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/engine/Rune.Browser/Rune.Browser.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Markdown/Rune.Markdown.csproj" />
+    <ProjectReference Include="../../src/engine/Rune.Rendering/Rune.Rendering.csproj" />
+    <ProjectReference Include="../../src/contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

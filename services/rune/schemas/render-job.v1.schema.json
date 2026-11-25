@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-job.v1.schema.json",
+  "title": "RUNE render job v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "outputFormat",
+    "options",
+    "packagePath",
+    "attempt",
+    "maximumAttempts",
+    "createdAt",
+    "progressPercent"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "enum": [
+        "queued",
+        "claimed",
+        "rendering",
+        "cancelRequested",
+        "cancelled",
+        "completed",
+        "failed"
+      ]
+    },
+    "outputFormat": {
+      "enum": [
+        "interactiveHtml",
+        "staticHtml",
+        "structuredJson",
+        "pdf",
+        "pdfA",
+        "png",
+        "jpeg",
+        "svg"
+      ]
+    },
+    "options": {
+      "$ref": "render-options.v1.schema.json"
+    },
+    "packagePath": {
+      "type": "string"
+    },
+    "resultPath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contentType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maximumAttempts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "startedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "idempotencyKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "claimedBy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "leaseExpiresAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "progressPercent": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "progressStage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resultLength": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "conversionReportPath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cacheStatus": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "hit",
+        "miss",
+        "refresh",
+        "bypass",
+        null
+      ]
+    },
+    "cacheFingerprint": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9A-Fa-f]{64}$"
+    },
+    "cacheSourceRenderId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "leaseToken": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dispatchStatus": {
+      "enum": [
+        "pending",
+        "publishing",
+        "published"
+      ]
+    },
+    "dispatchEventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "dispatchGeneration": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dispatchAttempts": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dispatchClaimedBy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dispatchError": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deadLetterReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dispatchLeaseExpiresAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "dispatchNextAttemptAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "dispatchPublishedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "deadLetteredAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "dispatchToken": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dispatchHeaders": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

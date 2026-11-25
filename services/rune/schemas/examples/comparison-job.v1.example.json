@@ -1,0 +1,20 @@
+{
+  "left": {
+    "renderId": "00000000-0000-0000-0000-000000000001",
+    "artifactName": "content"
+  },
+  "right": {
+    "renderId": "00000000-0000-0000-0000-000000000002",
+    "artifactName": "content"
+  },
+  "profile": {
+    "name": "release-equivalence",
+    "version": "1",
+    "compareIdentity": true,
+    "compareSemantic": true,
+    "compareStructure": true,
+    "compareVisual": false
+  },
+  "idempotencyKey": "compare-release-candidates",
+  "retentionDays": 30
+}

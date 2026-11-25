@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/comparison-job.v1.schema.json",
+  "title": "RUNE asynchronous artifact comparison job v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "left",
+    "right"
+  ],
+  "properties": {
+    "left": {
+      "$ref": "#/$defs/artifactReference"
+    },
+    "right": {
+      "$ref": "#/$defs/artifactReference"
+    },
+    "profile": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/profile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "idempotencyKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 240
+    },
+    "retentionDays": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3650,
+      "default": 30
+    }
+  },
+  "$defs": {
+    "artifactReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "renderId"
+      ],
+      "properties": {
+        "renderId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "artifactName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:\\.\\.|[\\\\/])).+$",
+          "default": "content"
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "default": "default"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "default": "1"
+        },
+        "compareIdentity": {
+          "type": "boolean",
+          "default": true
+        },
+        "compareSemantic": {
+          "type": "boolean",
+          "default": true
+        },
+        "compareStructure": {
+          "type": "boolean",
+          "default": true
+        },
+        "compareVisual": {
+          "type": "boolean",
+          "default": false
+        },
+        "compareOcr": {
+          "type": "boolean",
+          "default": false
+        },
+        "canonicalizePdf": {
+          "type": "boolean",
+          "default": true
+        },
+        "normalizeText": {
+          "type": "boolean",
+          "default": true
+        },
+        "includeByteRanges": {
+          "type": "boolean",
+          "default": true
+        },
+        "maximumReportedRanges": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000,
+          "default": 100
+        },
+        "pixelTolerancePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "maximumPixelMismatchRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "minimumOcrSimilarity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 1
+        },
+        "rasterDpi": {
+          "type": "integer",
+          "minimum": 72,
+          "maximum": 600,
+          "default": 144
+        },
+        "ocrLanguage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "default": "eng"
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 900,
+          "default": 60
+        },
+        "ignoredFields": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "maxItems": 1000,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "left": {
+    "name": "left.json",
+    "contentBase64": "eyJhIjoxLCJiIjoyfQ==",
+    "contentType": "application/json"
+  },
+  "right": {
+    "name": "right.json",
+    "contentBase64": "eyJiIjoyLCJhIjoxfQ==",
+    "contentType": "application/json"
+  },
+  "normalizeText": true,
+  "includeByteRanges": true,
+  "maximumReportedRanges": 100
+}

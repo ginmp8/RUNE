@@ -1,0 +1,4 @@
+:root { --accent: #1d4ed8; --surface: #f7f9fc; --border: #d7deea; --code-bg: #f4f6f9; }
+body { background: #fff; }
+h1 { color: #10213f; border-bottom: 3px solid var(--accent); padding-bottom: .45rem; }
+h2 { color: #16325c; border-bottom: 1px solid var(--border); padding-bottom: .25rem; }

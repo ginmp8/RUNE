@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/page-decoration-plan.v1.schema.json",
+  "title": "RUNE page decoration normalized plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "requiresTwoPass",
+    "preserveTaggedPdf",
+    "validateFinalPdfA",
+    "fragments",
+    "digest"
+  ],
+  "properties": {
+    "contractVersion": {
+      "const": "1.0"
+    },
+    "requiresTwoPass": {
+      "type": "boolean"
+    },
+    "preserveTaggedPdf": {
+      "type": "boolean"
+    },
+    "validateFinalPdfA": {
+      "type": "boolean"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "fragments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "profile",
+          "region",
+          "format",
+          "capability",
+          "overflow",
+          "minimumScale",
+          "tokens",
+          "resources",
+          "contentSha256"
+        ],
+        "properties": {
+          "profile": {
+            "type": "string"
+          },
+          "region": {
+            "enum": [
+              "header",
+              "footer"
+            ]
+          },
+          "format": {
+            "enum": [
+              "text",
+              "markdown",
+              "html"
+            ]
+          },
+          "capability": {
+            "enum": [
+              "direct",
+              "preRender",
+              "rejected"
+            ]
+          },
+          "overflow": {
+            "enum": [
+              "error",
+              "clip",
+              "scale"
+            ]
+          },
+          "minimumScale": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 1
+          },
+          "maximumHeight": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contentSha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

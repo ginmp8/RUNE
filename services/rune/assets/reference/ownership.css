@@ -1,0 +1,186 @@
+.ownership-chart {
+  margin: 1.5rem 0;
+  border: 1px solid #d8dee8;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  break-inside: avoid;
+  position: relative;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, .06);
+}
+.ownership-chart > figcaption {
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: .8rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.ownership-loading {
+  position: absolute;
+  z-index: 20;
+  inset: 49px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .94);
+  font-weight: 600;
+  color: #475569;
+}
+.ownership-chart[data-render-state="ready"] > .ownership-loading { display: none; }
+.ownership-chart[data-render-state="error"] > .ownership-loading {
+  position: static;
+  padding: 1rem;
+  background: #fff1f2;
+  color: #9f1239;
+}
+.ownership-formal-host {
+  display: grid;
+  grid-template-rows: auto minmax(420px, auto) auto;
+  min-height: 500px;
+}
+.ownership-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  align-items: center;
+  padding: .65rem .8rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+}
+.ownership-controls input,
+.ownership-controls select,
+.ownership-controls button {
+  font: inherit;
+  min-height: 34px;
+  padding: .36rem .55rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #0f172a;
+}
+.ownership-controls input[type="search"] { min-width: 210px; flex: 1; }
+.ownership-controls button { cursor: pointer; font-weight: 600; }
+.ownership-controls button:hover { background: #f8fafc; border-color: #94a3b8; }
+.ownership-controls .ownership-minimum { width: 86px; }
+.ownership-toggle {
+  display: inline-flex;
+  gap: .35rem;
+  align-items: center;
+  padding: .25rem .35rem;
+  color: #334155;
+  font-size: .8rem;
+  white-space: nowrap;
+}
+.ownership-toggle input { min-height: auto; }
+.ownership-formal-viewport {
+  position: relative;
+  min-height: 460px;
+  max-height: min(78vh, 900px);
+  overflow: auto;
+  padding: 22px;
+  background:
+    linear-gradient(#f8fafc 1px, transparent 1px),
+    linear-gradient(90deg, #f8fafc 1px, transparent 1px),
+    #fff;
+  background-size: 24px 24px;
+}
+.ownership-formal-canvas {
+  position: relative;
+  width: 100%;
+  min-width: 680px;
+  margin: 0 auto;
+  transition: width .18s ease;
+}
+.ownership-formal-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 380px;
+  margin: 0 auto;
+  overflow: visible;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+.ownership-formal-svg .ownership-edge,
+.ownership-formal-svg .ownership-bus {
+  vector-effect: non-scaling-stroke;
+}
+.ownership-formal-svg .ownership-node-card,
+.ownership-formal-svg .ownership-edge-label rect,
+.ownership-formal-svg .ownership-country rect {
+  vector-effect: non-scaling-stroke;
+}
+.ownership-formal-svg .ownership-node {
+  filter: drop-shadow(0 1px 1.5px rgba(15, 23, 42, .08));
+}
+.ownership-formal-svg .ownership-edge-label {
+  pointer-events: none;
+}
+.ownership-formal-svg .ownership-node-person .ownership-node-card {
+  fill: #f8fbff;
+}
+.ownership-formal-svg .ownership-node-fund .ownership-node-card {
+  fill: #fbf9ff;
+}
+.ownership-formal-svg .ownership-node-trust .ownership-node-card,
+.ownership-formal-svg .ownership-node-foundation .ownership-node-card {
+  fill: #f7fcfb;
+}
+.ownership-empty {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  display: grid;
+  place-items: center;
+  min-height: 380px;
+  background: rgba(255, 255, 255, .92);
+  color: #475569;
+  font-weight: 700;
+  text-align: center;
+  padding: 1rem;
+}
+.ownership-summary {
+  padding: .55rem .85rem;
+  border-top: 1px solid #e5e7eb;
+  color: #475569;
+  background: #f8fafc;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.ownership-diagnostics,
+.ownership-source-fallback { margin: .6rem .9rem 1rem; }
+.ownership-diagnostic-error { color: #b91c1c; }
+.ownership-diagnostic-warning { color: #a16207; }
+.ownership-diagnostic-info { color: #0369a1; }
+.ownership-print-snapshot { display: none; }
+.ownership-print-svg { font-family: Inter, "Segoe UI", Arial, sans-serif; }
+
+@media print {
+  .ownership-chart {
+    overflow: visible !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    border-radius: 7px;
+    box-shadow: none;
+  }
+  .ownership-formal-host > .ownership-controls,
+  .ownership-formal-host > .ownership-formal-viewport,
+  .ownership-formal-host > .ownership-summary,
+  .ownership-source-fallback,
+  .ownership-loading { display: none !important; }
+  .ownership-print-snapshot {
+    display: block !important;
+    width: 100%;
+    padding: .25rem;
+    box-sizing: border-box;
+  }
+  .ownership-print-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 76vh;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  .ownership-diagnostics { break-inside: avoid; }
+}

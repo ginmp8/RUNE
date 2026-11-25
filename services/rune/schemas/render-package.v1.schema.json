@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-package.v1.schema.json",
+  "title": "RUNE render package v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "renderId",
+    "html",
+    "outputFormat",
+    "options",
+    "contentHash",
+    "createdAt",
+    "contractVersion",
+    "sourceType"
+  ],
+  "properties": {
+    "renderId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "html": {
+      "type": "string"
+    },
+    "outputFormat": {
+      "enum": [
+        "interactiveHtml",
+        "staticHtml",
+        "structuredJson",
+        "pdf",
+        "pdfA",
+        "png",
+        "jpeg",
+        "svg"
+      ]
+    },
+    "options": {
+      "$ref": "render-options.v1.schema.json"
+    },
+    "contentHash": {
+      "type": "string",
+      "pattern": "^[0-9A-Fa-f]{64}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "documentModel": {
+      "oneOf": [
+        {
+          "$ref": "document-model.v1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "contractVersion": {
+      "enum": [
+        "1.0",
+        "1.1"
+      ]
+    },
+    "sourceType": {
+      "enum": [
+        "markdown",
+        "html",
+        "pdf",
+        "template",
+        "composite"
+      ]
+    },
+    "sourceResourcePath": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resources": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "contentType",
+          "content"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "contentEncoding": "base64"
+          }
+        }
+      }
+    },
+    "pdfImport": {
+      "oneOf": [
+        {
+          "$ref": "pdf-import-options.v1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "outputFormats": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "interactiveHtml",
+          "staticHtml",
+          "structuredJson",
+          "pdf",
+          "pdfA",
+          "png",
+          "jpeg",
+          "svg"
+        ]
+      }
+    },
+    "nativePdfImports": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "native-pdf-import-plan.v1.schema.json"
+      }
+    }
+  }
+}
