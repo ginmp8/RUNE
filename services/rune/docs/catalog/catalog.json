@@ -1,0 +1,1447 @@
+{
+  "version": "0.18.0",
+  "features": [
+    {
+      "id": "basic-structure",
+      "title": "Basic Structure",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Common document structure, headings, paragraphs, hard line breaks and thematic breaks.",
+      "documentation": "catalog/basic-structure.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "basic-structure"
+    },
+    {
+      "id": "text-formatting",
+      "title": "Text Formatting",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Strong, emphasis, deletion, mark, subscript, superscript and keyboard-key syntax.",
+      "documentation": "catalog/text-formatting.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "text-formatting"
+    },
+    {
+      "id": "characters-and-emoji",
+      "title": "Characters And Emoji",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Escaped characters, GFM emoji and smart symbols.",
+      "documentation": "catalog/characters-and-emoji.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "characters-and-emoji"
+    },
+    {
+      "id": "links-and-anchors",
+      "title": "Links And Anchors",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Links, autolinks, mail links and explicit heading anchors.",
+      "documentation": "catalog/links-and-anchors.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "links-and-anchors"
+    },
+    {
+      "id": "images-and-media",
+      "title": "Images And Media",
+      "category": "HTML and media",
+      "status": "implemented",
+      "summary": "Images, audio and video with local-resource embedding.",
+      "documentation": "catalog/images-and-media.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "images-and-media"
+    },
+    {
+      "id": "lists",
+      "title": "Lists",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Nested, ordered, task and definition lists.",
+      "documentation": "catalog/lists.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "lists"
+    },
+    {
+      "id": "quotes",
+      "title": "Quotes",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Block quotes and semantic inline quotations.",
+      "documentation": "catalog/quotes.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "quotes"
+    },
+    {
+      "id": "code",
+      "title": "Code",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Inline code and fenced code with language metadata.",
+      "documentation": "catalog/code.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "code"
+    },
+    {
+      "id": "tables",
+      "title": "Tables",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Pipe tables and safe semantic HTML tables.",
+      "documentation": "catalog/tables.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "tables"
+    },
+    {
+      "id": "footnotes-and-abbreviations",
+      "title": "Footnotes And Abbreviations",
+      "category": "Markdown",
+      "status": "implemented",
+      "summary": "Footnotes and abbreviation definitions.",
+      "documentation": "catalog/footnotes-and-abbreviations.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "footnotes-and-abbreviations"
+    },
+    {
+      "id": "front-matter",
+      "title": "Front Matter",
+      "category": "Metadata",
+      "status": "implemented",
+      "summary": "YAML, TOML, JSON and MultiMarkdown metadata.",
+      "documentation": "catalog/front-matter.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "front-matter"
+    },
+    {
+      "id": "toc-and-numbering",
+      "title": "Toc And Numbering",
+      "category": "Document layout",
+      "status": "implemented",
+      "summary": "Hierarchical table of contents and heading numbering.",
+      "documentation": "catalog/toc-and-numbering.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "toc-and-numbering"
+    },
+    {
+      "id": "alerts-and-callouts",
+      "title": "Alerts And Callouts",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "GitHub alerts, Obsidian callouts and MkDocs admonitions.",
+      "documentation": "catalog/alerts-and-callouts.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "alerts-and-callouts"
+    },
+    {
+      "id": "tabs-and-details",
+      "title": "Tabs And Details",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "MkDocs-style tabs and native details blocks.",
+      "documentation": "catalog/tabs-and-details.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "tabs-and-details"
+    },
+    {
+      "id": "attributes-and-html",
+      "title": "Attributes And Html",
+      "category": "HTML and media",
+      "status": "implemented",
+      "summary": "Heading attributes and sanitized semantic HTML.",
+      "documentation": "catalog/attributes-and-html.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "attributes-and-html"
+    },
+    {
+      "id": "includes",
+      "title": "Includes",
+      "category": "Resources",
+      "status": "implemented",
+      "summary": "Nested local includes with line, heading and block selectors.",
+      "documentation": "catalog/includes.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "includes"
+    },
+    {
+      "id": "github-compatibility",
+      "title": "Github Compatibility",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "Task lists, alerts and opt-in issue/user references.",
+      "documentation": "catalog/github-compatibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "github-compatibility"
+    },
+    {
+      "id": "obsidian-compatibility",
+      "title": "Obsidian Compatibility",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "Wikilinks, block IDs, transclusions and callouts.",
+      "documentation": "catalog/obsidian-compatibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "obsidian-compatibility"
+    },
+    {
+      "id": "mkdocs-compatibility",
+      "title": "Mkdocs Compatibility",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "Admonitions, tabs and PyMdown include syntax.",
+      "documentation": "catalog/mkdocs-compatibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "mkdocs-compatibility"
+    },
+    {
+      "id": "pandoc-compatibility",
+      "title": "Pandoc Compatibility",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "Fenced divs and inline footnotes.",
+      "documentation": "catalog/pandoc-compatibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "pandoc-compatibility"
+    },
+    {
+      "id": "universal-minor-compatibility",
+      "title": "Universal Minor Compatibility",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "CriticMarkup, progress bars, FancyLists, smart symbols, GH references, alternate math delimiters, and semantic safe HTML from the 1.8.7 minor baseline.",
+      "documentation": "catalog/universal-minor-compatibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownCompatibilityNormalizer.cs",
+        "services/rune/src/engine/Rune.Security/HtmlContentSanitizer.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/ReferenceMinorCompatibilityTests.cs"
+      ]
+    },
+    {
+      "id": "katex-math",
+      "title": "Katex Math",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Offline inline and display mathematics rendered by KaTeX.",
+      "documentation": "catalog/katex-math.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs",
+        "services/rune/assets/vendor/katex/katex.min.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/PageDecorationBrowserTests.cs"
+      ],
+      "referenceCase": "katex-math"
+    },
+    {
+      "id": "mermaid",
+      "title": "Mermaid",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Offline Mermaid diagrams with readiness validation.",
+      "documentation": "catalog/mermaid.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs",
+        "services/rune/assets/vendor/mermaid/mermaid.min.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/PageDecorationBrowserTests.cs"
+      ],
+      "referenceCase": "mermaid"
+    },
+    {
+      "id": "schematex-and-orgchart",
+      "title": "Schematex And Orgchart",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Official, integrity-pinned SchemaTex 1.0.1 renders the upstream DSL through a restricted local Node.js process and sanitized SVG for every supported output workflow.",
+      "documentation": "catalog/schematex-and-orgchart.md",
+      "implementation": [
+        "services/rune/assets/vendor/schematex/package/dist/index.js",
+        "services/rune/assets/vendor/schematex/render.mjs",
+        "services/rune/src/engine/Rune.Markdown/OfficialSchemaTexAdapter.cs",
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs",
+        "services/rune/src/engine/Rune.Rendering/RendererAssetCatalog.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/RendererAssetCatalogTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/SchemaTexBrowserTests.cs",
+        "services/rune/tools/tests/test_download_web_assets.py",
+        "services/rune/tools/tests/test_schematex_runtime.py"
+      ],
+      "referenceCase": "schematex-and-orgchart"
+    },
+    {
+      "id": "ownership-chart",
+      "title": "Ownership Chart",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Validated ownership DSL, indirect ownership and deterministic browser rendering.",
+      "documentation": "catalog/ownership-chart.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "ownership-chart"
+    },
+    {
+      "id": "maps",
+      "title": "Maps",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Static GeoJSON and TopoJSON rendering.",
+      "documentation": "catalog/maps.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "maps"
+    },
+    {
+      "id": "charts",
+      "title": "Charts",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Static bar, line, pie and donut charts.",
+      "documentation": "catalog/charts.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "charts"
+    },
+    {
+      "id": "stl",
+      "title": "Stl",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Static ASCII STL projection.",
+      "documentation": "catalog/stl.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "stl"
+    },
+    {
+      "id": "data-tables",
+      "title": "Data Tables",
+      "category": "Data",
+      "status": "implemented",
+      "summary": "CSV, TSV, JSON and YAML data-table blocks.",
+      "documentation": "catalog/data-tables.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "data-tables"
+    },
+    {
+      "id": "preserved-diagrams",
+      "title": "Preserved Diagrams",
+      "category": "Compatibility",
+      "status": "implemented",
+      "summary": "Unsupported executable diagram DSLs are preserved as source with diagnostics.",
+      "documentation": "catalog/preserved-diagrams.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "preserved-diagrams"
+    },
+    {
+      "id": "conditional-content-and-page-breaks",
+      "title": "Conditional Content And Page Breaks",
+      "category": "Document layout",
+      "status": "implemented",
+      "summary": "PDF-only/HTML-only sections and explicit page breaks.",
+      "documentation": "catalog/conditional-content-and-page-breaks.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "conditional-content-and-page-breaks"
+    },
+    {
+      "id": "cover-metadata",
+      "title": "Cover Metadata",
+      "category": "Document layout",
+      "status": "implemented",
+      "summary": "Document cover with title, subtitle, author, organization, version, status, date, description and image.",
+      "documentation": "catalog/cover-metadata.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "cover-metadata"
+    },
+    {
+      "id": "header-and-footer",
+      "title": "Header And Footer",
+      "category": "Document layout",
+      "status": "implemented",
+      "summary": "Chromium header and footer templates.",
+      "documentation": "catalog/header-and-footer.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "header-and-footer"
+    },
+    {
+      "id": "themes-and-print-css",
+      "title": "Themes And Print Css",
+      "category": "Document layout",
+      "status": "implemented",
+      "summary": "Professional, minimal and dark themes with print behavior.",
+      "documentation": "catalog/themes-and-print-css.md",
+      "implementation": [
+        "services/rune/assets/styles/base.css"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "themes-and-print-css"
+    },
+    {
+      "id": "preview-readiness",
+      "title": "Preview Readiness",
+      "category": "Rendering",
+      "status": "implemented",
+      "summary": "Shared interactive and export pipeline with fail-closed readiness barriers.",
+      "documentation": "catalog/preview-readiness.md",
+      "implementation": [
+        "services/rune/assets/runtime/readiness.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "preview-readiness"
+    },
+    {
+      "id": "resource-security",
+      "title": "Resource Security",
+      "category": "Security",
+      "status": "implemented",
+      "summary": "HTML sanitization, resource confinement and external-network blocking.",
+      "documentation": "catalog/resource-security.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Markdown/MarkdownDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "resource-security"
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility",
+      "category": "Accessibility",
+      "status": "implemented",
+      "summary": "Document language, semantic markup, tagged PDF output, outlines, and optional marker-resolved physical-page structure maps.",
+      "documentation": "catalog/accessibility.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/TaggedPdfStructureMapTests.cs"
+      ],
+      "referenceCase": "accessibility"
+    },
+    {
+      "id": "download-flow",
+      "title": "Download Flow",
+      "category": "Studio",
+      "status": "implemented",
+      "summary": "Fingerprint-aware preview and reusable export downloads in RUNE Studio.",
+      "documentation": "catalog/download-flow.md",
+      "implementation": [
+        "services/rune/apps/rune-studio/app.py"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompatibilityTests.cs"
+      ],
+      "referenceCase": "download-flow"
+    },
+    {
+      "id": "reactflow-stable-svg",
+      "title": "React Flow Stable SVG Renderer",
+      "category": "Renderers",
+      "status": "implemented",
+      "summary": "Deterministic local SVG renderer aligned with the Markdown PDF Studio 1.8.7 recovery baseline.",
+      "documentation": "catalog/reactflow-stable-svg.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.ReactFlow/ReactFlowDocumentParser.cs",
+        "services/rune/assets/reactflow/reactflow-renderer.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/ReactFlowTests.cs",
+        "services/rune/tools/Rune.Validation/Program.cs",
+        "scripts/verify_recovery_runtime.py"
+      ],
+      "referenceCase": "reactflow-stable-svg"
+    },
+    {
+      "id": "html-input",
+      "title": "Html Input",
+      "category": "HTML and media",
+      "status": "implemented",
+      "summary": "Safe and trusted full-document or fragment HTML input.",
+      "documentation": "catalog/html-input.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Html/HtmlDocumentCompiler.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/EngineTests.cs"
+      ]
+    },
+    {
+      "id": "structured-json",
+      "title": "Structured Json",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Versioned semantic RUNE document model output.",
+      "documentation": "catalog/structured-json.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentModel.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "static-html",
+      "title": "Static Html",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Browser-materialized static HTML with canvas conversion and script removal.",
+      "documentation": "catalog/static-html.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/EngineTests.cs"
+      ]
+    },
+    {
+      "id": "pdf",
+      "title": "Pdf",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Chromium PDF with page, margin, background, header, footer, tagging and outline options.",
+      "documentation": "catalog/pdf.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "scripts/smoke.py"
+      ]
+    },
+    {
+      "id": "pdf-a",
+      "title": "Pdf A",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "PDF/A-1b, PDF/A-2b and PDF/A-3b conversion through Ghostscript.",
+      "documentation": "catalog/pdf-a.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Export.Pdf/PdfAConverter.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "image-output",
+      "title": "Image Output",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Full-page PNG and configurable-quality JPEG output.",
+      "documentation": "catalog/image-output.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "scripts/smoke.py"
+      ]
+    },
+    {
+      "id": "svg-output",
+      "title": "Svg Output",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "SVG extraction or full-document foreignObject snapshot.",
+      "documentation": "catalog/svg-output.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "scripts/smoke.py"
+      ]
+    },
+    {
+      "id": "job-lifecycle",
+      "title": "Job Lifecycle",
+      "category": "Jobs",
+      "status": "implemented",
+      "summary": "Queued, claimed, rendering, cancel-requested, cancelled, completed and failed states.",
+      "documentation": "catalog/job-lifecycle.md",
+      "implementation": [
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "job-leases",
+      "title": "Job Leases",
+      "category": "Jobs",
+      "status": "implemented",
+      "summary": "Cross-process claims, renewable leases and bounded attempts for multiple workers.",
+      "documentation": "catalog/job-leases.md",
+      "implementation": [
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "job-idempotency",
+      "title": "Job Idempotency",
+      "category": "Jobs",
+      "status": "implemented",
+      "summary": "Atomic idempotent job creation across concurrent API requests.",
+      "documentation": "catalog/job-idempotency.md",
+      "implementation": [
+        "services/rune/src/application/Rune.Jobs/RenderJobService.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "job-events",
+      "title": "Job Events",
+      "category": "Messaging",
+      "status": "implemented",
+      "summary": "Versioned requested, started, progressed, completed, failed and cancelled events.",
+      "documentation": "catalog/job-events.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Event.Contracts/EventContracts.cs"
+      ],
+      "tests": [
+        "messaging/nats/tests/Rune.Messaging.Nats.Tests/NatsContractTests.cs"
+      ]
+    },
+    {
+      "id": "server-sent-events",
+      "title": "Server Sent Events",
+      "category": "API",
+      "status": "implemented",
+      "summary": "SSE status/progress streams with event identifiers, retry guidance, heartbeat comments, and Last-Event-ID resumption.",
+      "documentation": "catalog/server-sent-events.md",
+      "implementation": [
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/src/contracts/Rune.Api.Contracts/SseEventFormatter.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/SseEventFormatterTests.cs",
+        "services/rune/apps/rune-studio/tests/test_client_contract.py"
+      ]
+    },
+    {
+      "id": "job-retention",
+      "title": "Job Retention",
+      "category": "Jobs",
+      "status": "implemented",
+      "summary": "Configurable cleanup of completed jobs and artifacts.",
+      "documentation": "catalog/job-retention.md",
+      "implementation": [
+        "services/rune/apps/rune-worker/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "rune-studio",
+      "title": "Rune Studio",
+      "category": "Studio",
+      "status": "implemented",
+      "summary": "Markdown/HTML editor, preview, diagnostics, exports, job management and documentation.",
+      "documentation": "catalog/rune-studio.md",
+      "implementation": [
+        "services/rune/apps/rune-studio/app.py"
+      ],
+      "tests": [
+        "services/rune/apps/rune-studio/tests/test_client_contract.py"
+      ]
+    },
+    {
+      "id": "rune-cli",
+      "title": "Rune Cli",
+      "category": "Clients",
+      "status": "implemented",
+      "summary": "Render, wait, status, list, download, cancel, retry, feature discovery, and release-package verification commands.",
+      "documentation": "catalog/rune-cli.md",
+      "implementation": [
+        "services/rune/apps/rune-cli/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs",
+        "services/rune/tests/Rune.Engine.Tests/ReleasePackageVerifierTests.cs"
+      ]
+    },
+    {
+      "id": "dotnet-sdk",
+      "title": "Dotnet Sdk",
+      "category": "Clients",
+      "status": "implemented",
+      "summary": "Typed .NET API client.",
+      "documentation": "catalog/dotnet-sdk.md",
+      "implementation": [
+        "services/rune/sdk/dotnet/Rune.Client/RuneApiClient.cs"
+      ],
+      "tests": [
+        "services/rune/tools/Rune.Validation/Program.cs"
+      ]
+    },
+    {
+      "id": "python-sdk",
+      "title": "Python Sdk",
+      "category": "Clients",
+      "status": "implemented",
+      "summary": "Python API client with polling and SSE.",
+      "documentation": "catalog/python-sdk.md",
+      "implementation": [
+        "services/rune/sdk/python/rune_client/client.py"
+      ],
+      "tests": [
+        "services/rune/sdk/python/tests/test_client.py"
+      ]
+    },
+    {
+      "id": "typescript-sdk",
+      "title": "Typescript Sdk",
+      "category": "Clients",
+      "status": "implemented",
+      "summary": "TypeScript fetch client and contract types.",
+      "documentation": "catalog/typescript-sdk.md",
+      "implementation": [
+        "services/rune/sdk/typescript/src/index.ts"
+      ],
+      "tests": [
+        "services/rune/sdk/typescript/tests/contract.test.mjs"
+      ]
+    },
+    {
+      "id": "page-decoration-profiles",
+      "title": "Page Header And Footer Profiles",
+      "category": "PDF and print",
+      "status": "implemented",
+      "summary": "Canonical page-decoration plans merge API, front matter, fences, and theme defaults; resolve physical selectors; pre-render approved fragments; validate overflow; and publish deterministic provenance.",
+      "documentation": "catalog/page-decoration-profiles.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/PageDecorationContracts.cs",
+        "services/rune/src/engine/Rune.Rendering/PageDecorationCompiler.cs",
+        "services/rune/src/engine/Rune.Rendering/PageDecorationRuleResolver.cs",
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs",
+        "services/rune/schemas/page-decoration-plan.v1.schema.json"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/PageDecorationAdvancedTests.cs",
+        "services/rune/tests/Rune.Engine.Tests/PageDecorationAuthoringTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/PageDecorationBrowserTests.cs"
+      ]
+    },
+    {
+      "id": "renderer-capability-discovery",
+      "title": "Renderer Capability Discovery",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Runtime asset availability, version, source, missing-file, and digest reporting.",
+      "documentation": "catalog/renderer-capability-discovery.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Rendering/RendererAssetCatalog.cs",
+        "services/rune/apps/rune-api/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/RendererAssetCatalogTests.cs"
+      ]
+    },
+    {
+      "id": "resumable-render-events",
+      "title": "Resumable Render Events",
+      "category": "Jobs",
+      "status": "implemented",
+      "summary": "SSE event identifiers, Last-Event-ID resumption, retry hints, and heartbeat comments.",
+      "documentation": "catalog/sse-resume-heartbeats.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Api.Contracts/SseEventFormatter.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/apps/rune-studio/src/rune_studio/client.py"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/SseEventFormatterTests.cs",
+        "services/rune/apps/rune-studio/tests/test_client_contract.py"
+      ]
+    },
+    {
+      "id": "release-package-verification",
+      "title": "Release Package Verification",
+      "category": "CLI and release",
+      "status": "implemented",
+      "summary": "Offline verification of archive identity, safe paths, manifest coverage, content hashes, and external checksum.",
+      "documentation": "catalog/release-package-verification.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/ReleasePackageVerifier.cs",
+        "services/rune/apps/rune-cli/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/ReleasePackageVerifierTests.cs"
+      ]
+    },
+    {
+      "id": "bundled-mermaid-katex",
+      "title": "Bundled Mermaid and KaTeX",
+      "category": "Diagrams and math",
+      "status": "implemented",
+      "summary": "Audited MIT-licensed Mermaid and KaTeX browser assets bundled from pinned npm tarballs.",
+      "documentation": "catalog/bundled-mermaid-katex.md",
+      "implementation": [
+        "services/rune/assets/vendor/mermaid/mermaid.min.js",
+        "services/rune/assets/vendor/katex/katex.min.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/RendererAssetCatalogTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/PageDecorationBrowserTests.cs"
+      ]
+    },
+    {
+      "id": "pdf-to-html-conversion",
+      "title": "PDF to HTML Conversion",
+      "category": "PDF import",
+      "status": "implemented",
+      "summary": "Queued visual, semantic, and region-level hybrid PDF-to-HTML conversion emits bounded OCR provenance and a complete conversion report while rejecting encrypted or permission-restricted input.",
+      "documentation": "catalog/pdf-to-html-conversion.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/apps/rune-studio/app.py",
+        "services/rune/apps/rune-cli/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs",
+        "services/rune/tests/Rune.Engine.Tests/PdfContractTests.cs",
+        "services/rune/apps/rune-studio/tests/test_client_contract.py",
+        "services/rune/sdk/python/tests/test_client.py"
+      ]
+    },
+    {
+      "id": "local-render-dispatcher",
+      "title": "Local Render Dispatcher",
+      "category": "Messaging",
+      "status": "implemented",
+      "summary": "Default bounded in-process dispatch with recovery, retries, scopes, health, backpressure, graceful drain, and explicit NATS switching.",
+      "documentation": "catalog/local-render-dispatcher.md",
+      "implementation": [
+        "services/rune/src/dispatching/Rune.Dispatching.Local/LocalDispatching.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "services/rune/apps/rune-api/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Dispatching.Local.Tests/LocalDispatcherTests.cs"
+      ]
+    },
+    {
+      "id": "pdf-ocr",
+      "title": "PDF OCR",
+      "category": "PDF import",
+      "status": "implemented",
+      "summary": "Optional auto or forced Tesseract OCR with searchable text and fail-closed provider discovery.",
+      "documentation": "catalog/pdf-ocr.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/apps/rune-worker/Dockerfile"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs"
+      ]
+    },
+    {
+      "id": "encrypted-pdf-import",
+      "title": "Encrypted PDF Import",
+      "category": "PDF import",
+      "status": "implemented",
+      "summary": "Password-protected PDF import across semantic, visual, hybrid, and OCR paths without password disclosure.",
+      "documentation": "catalog/encrypted-pdf-import.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs",
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs"
+      ]
+    },
+    {
+      "id": "pdf-link-preservation",
+      "title": "PDF Link Preservation",
+      "category": "PDF import",
+      "status": "implemented",
+      "summary": "Safe extraction of HTTP, HTTPS, and mailto URI annotations into HTML anchors.",
+      "documentation": "catalog/pdf-link-preservation.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs"
+      ]
+    },
+    {
+      "id": "pdf-image-extraction",
+      "title": "PDF Image Extraction",
+      "category": "PDF import",
+      "status": "implemented",
+      "summary": "Standalone extraction and digest reporting for supported PDF image XObjects.",
+      "documentation": "catalog/pdf-image-extraction.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "services/rune/apps/rune-api/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs"
+      ]
+    },
+    {
+      "id": "streamlit-apptest",
+      "title": "Streamlit AppTest",
+      "category": "Studio",
+      "status": "implemented",
+      "summary": "Exact Streamlit 1.59.2 AppTest coverage for Studio navigation, document editing, live preview, and export interactions.",
+      "documentation": "catalog/streamlit-apptest.md",
+      "implementation": [
+        "services/rune/apps/rune-studio/app.py",
+        "scripts/verify_streamlit_apptest.py"
+      ],
+      "tests": [
+        "services/rune/apps/rune-studio/tests/test_app.py",
+        "services/rune/tools/tests/test_streamlit_apptest_runner.py"
+      ]
+    },
+    {
+      "id": "studio-pdf-import-controls",
+      "title": "Studio PDF Import Controls",
+      "category": "Studio",
+      "status": "implemented",
+      "summary": "OCR, encrypted PDF, safe-link, image-extraction, report, and artifact-download controls in Studio.",
+      "documentation": "catalog/studio-pdf-import-controls.md",
+      "implementation": [
+        "services/rune/apps/rune-studio/app.py",
+        "services/rune/apps/rune-studio/src/rune_studio/client.py",
+        "services/rune/apps/rune-studio/src/rune_studio/pdf_import.py"
+      ],
+      "tests": [
+        "services/rune/apps/rune-studio/tests/test_app.py",
+        "services/rune/apps/rune-studio/tests/test_client_contract.py"
+      ]
+    },
+    {
+      "id": "independent-verapdf-validation",
+      "title": "Independent veraPDF Validation",
+      "category": "PDF and print",
+      "status": "implemented",
+      "summary": "External machine-readable PDF/A conformance qualification with veraPDF.",
+      "documentation": "catalog/independent-verapdf-validation.md",
+      "implementation": [
+        "scripts/validate_verapdf.py"
+      ],
+      "tests": [
+        "services/rune/tools/tests/test_verapdf_validation.py"
+      ]
+    },
+    {
+      "id": "supply-chain-evidence",
+      "title": "Supply Chain Evidence",
+      "category": "CLI and release",
+      "status": "implemented",
+      "summary": "CycloneDX SBOM, offline vulnerability scanning, Ed25519 signatures, and SLSA provenance.",
+      "documentation": "catalog/supply-chain-evidence.md",
+      "implementation": [
+        "services/rune/tools/lib/rune_supply_chain.py",
+        "scripts/generate_sbom.py",
+        "scripts/scan_vulnerabilities.py",
+        "scripts/sign_artifact.py",
+        "scripts/generate_provenance.py",
+        "services/rune/security/advisory-database.schema.json"
+      ],
+      "tests": [
+        "services/rune/tools/tests/test_supply_chain.py"
+      ]
+    },
+    {
+      "id": "complete-api-evidence",
+      "title": "Complete API Evidence",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Local and distributed public-API generation and verification of every declared document output format.",
+      "documentation": "catalog/complete-api-evidence.md",
+      "implementation": [
+        "scripts/generate_api_evidence.py",
+        "scripts/verify_distributed_pipeline.py",
+        "scripts/generate_advanced_api_evidence.py"
+      ],
+      "tests": [
+        "services/rune/tools/tests/test_api_evidence.py",
+        "services/rune/tools/tests/test_distributed_pipeline.py",
+        "scripts/verify_native_pdf_pipeline.py"
+      ]
+    },
+    {
+      "id": "live-nats-jetstream-validation",
+      "title": "Live NATS JetStream Validation",
+      "category": "Messaging",
+      "status": "implemented",
+      "summary": "Exact-server adapter and full service-path JetStream qualification with durable queue and acknowledgement evidence.",
+      "documentation": "catalog/live-nats-jetstream-validation.md",
+      "implementation": [
+        "messaging/nats/src/Rune.Messaging.Nats/NatsMessaging.cs",
+        "scripts/verify_distributed_pipeline.py"
+      ],
+      "tests": [
+        "messaging/nats/tests/Rune.Messaging.Nats.Tests/NatsLiveIntegrationTests.cs",
+        "services/rune/tools/tests/test_distributed_pipeline.py"
+      ]
+    },
+    {
+      "id": "distributed-render-pipeline",
+      "title": "Distributed Render Pipeline",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Studio client to API to NATS/JetStream to Worker qualification with durable queueing, idempotency, Chromium, and all output formats.",
+      "documentation": "catalog/distributed-render-pipeline.md",
+      "implementation": [
+        "scripts/verify_distributed_pipeline.py",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/apps/rune-worker/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tools/tests/test_distributed_pipeline.py",
+        "messaging/nats/tests/Rune.Messaging.Nats.Tests/NatsLiveIntegrationTests.cs"
+      ]
+    },
+    {
+      "id": "custom-fonts-and-deterministic-typography",
+      "title": "Custom Fonts And Deterministic Typography",
+      "category": "Rendering",
+      "status": "implemented",
+      "summary": "Request-scoped WOFF2, WOFF, TrueType, and OpenType faces use deterministic resolution, explicit missing-face/glyph/embed/subset policies, a versioned fallback pack, and embedded-font provenance.",
+      "documentation": "catalog/custom-fonts-and-deterministic-typography.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs",
+        "services/rune/src/application/Rune.Application/BuiltInFontPack.cs",
+        "services/rune/src/application/Rune.Application/FontCssCompiler.cs",
+        "services/rune/src/application/Rune.Application/FontToolBridge.cs",
+        "services/rune/apps/rune-api/tools/rune_font_tool.py",
+        "services/rune/assets/runtime/readiness.js"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/FontFeatureTests.cs",
+        "services/rune/tests/Rune.Engine.Tests/PageDecorationAdvancedTests.cs"
+      ]
+    },
+    {
+      "id": "parameterized-templates-and-data-binding",
+      "title": "Parameterized Templates And Data Binding",
+      "category": "Document input",
+      "status": "implemented",
+      "summary": "rune-template-v1 provides strict typed JSON binding, contextual escaping, trusted typed insertion, deterministic locale/time-zone formatting, bounded partials/loops, and expansion provenance.",
+      "documentation": "catalog/parameterized-templates-and-data-binding.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs",
+        "services/rune/src/application/Rune.Application/RuneTemplateEngine.cs",
+        "services/rune/src/application/Rune.Application/DocumentRenderApplication.cs",
+        "services/rune/schemas/template-expansion.v1.schema.json"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/TemplateFeatureTests.cs",
+        "services/rune/sdk/python/tests/test_client.py"
+      ]
+    },
+    {
+      "id": "content-addressed-render-cache",
+      "title": "Content Addressed Render Cache",
+      "category": "Rendering",
+      "status": "implemented",
+      "summary": "Fingerprint v3 covers every material source and runtime identity; policy-controlled shared-filesystem caching reauthorizes hits, supports encrypted sensitive entries, fences owners, quarantines corruption, and preserves valid data on refresh failure.",
+      "documentation": "catalog/content-addressed-render-cache.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderCache.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/RenderCacheFeatureTests.cs"
+      ]
+    },
+    {
+      "id": "atomic-multi-output-export",
+      "title": "Atomic Multi Output Export",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Canonical caller-selected output sets share one expansion/compilation, expose per-output progress, validate and atomically commit a complete manifest-addressed set, and optionally publish a bounded ZIP package.",
+      "documentation": "catalog/atomic-multi-output-export.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Api.Contracts/ApiContracts.cs",
+        "services/rune/src/contracts/Rune.Job.Contracts/JobContracts.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs",
+        "services/rune/schemas/artifact-set-manifest.v1.schema.json"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/AtomicMultiOutputTests.cs",
+        "services/rune/tests/Rune.Jobs.Tests/JobStoreTests.cs",
+        "services/rune/sdk/python/tests/test_client.py"
+      ]
+    },
+    {
+      "id": "artifact-comparison",
+      "title": "Artifact Comparison",
+      "category": "Outputs",
+      "status": "implemented",
+      "summary": "Artifact-addressed asynchronous comparison jobs provide tenant-isolated authorization, versioned profiles, deterministic identity, cancellation/retry, and atomically published JSON/HTML reports.",
+      "documentation": "catalog/artifact-comparison.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Api.Contracts/ApiContracts.cs",
+        "services/rune/src/application/Rune.Application/ComparisonJobService.cs",
+        "services/rune/src/application/Rune.Application/ArtifactComparisonService.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/schemas/comparison-job.v1.schema.json"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/ComparisonJobServiceTests.cs",
+        "services/rune/tests/Rune.Engine.Tests/ArtifactComparisonTests.cs"
+      ]
+    },
+    {
+      "id": "composite-document-assembly",
+      "title": "Composite Document Assembly",
+      "category": "Document input",
+      "status": "implemented",
+      "summary": "Logical, rendered, hybrid, and deterministic auto assembly combine typed Markdown, HTML, template, prior-artifact, and PDF parts with stable identities, preservation decisions, numbering, references, and an assembly manifest.",
+      "documentation": "catalog/composite-document-assembly.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs",
+        "services/rune/src/application/Rune.Application/DocumentRenderApplication.cs",
+        "services/rune/src/import/Rune.Pdf/PdfImportService.cs",
+        "services/rune/src/import/Rune.Pdf/NativePdfImportPlanner.cs",
+        "services/rune/src/engine/Rune.Export.Pdf/NativePdfPageComposer.cs",
+        "services/rune/schemas/assembly-manifest.v1.schema.json"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/CompositeDocumentTests.cs",
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/NativePdfPageComposerTests.cs"
+      ]
+    },
+    {
+      "id": "physical-font-subsetting-and-sanitization",
+      "title": "Physical Font Subsetting And Sanitization",
+      "category": "Rendering",
+      "status": "implemented",
+      "summary": "FontTools-backed WOFF, WOFF2, TrueType, and OpenType inspection validates and sanitizes fonts by content hash and creates cached physical subsets without blocking auto-mode rendering.",
+      "documentation": "catalog/physical-font-subsetting-and-sanitization.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Core/DocumentContracts.cs",
+        "services/rune/src/application/Rune.Application/FontToolBridge.cs",
+        "services/rune/src/application/Rune.Application/FontCssCompiler.cs",
+        "services/rune/apps/rune-api/tools/rune_font_tool.py"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Engine.Tests/FontFeatureTests.cs",
+        "scripts/generate_advanced_api_evidence.py"
+      ]
+    },
+    {
+      "id": "tagged-pdf-structure-map",
+      "title": "Tagged PDF Structure Map",
+      "category": "Accessibility",
+      "status": "implemented",
+      "summary": "Optional temporary print markers resolve semantic DOM section and heading boundaries to exact physical PDF pages before a clean final PDF is generated.",
+      "documentation": "catalog/tagged-pdf-structure-map.md",
+      "implementation": [
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Browser.Tests/TaggedPdfStructureMapTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/SchemaTexBrowserTests.cs"
+      ]
+    },
+    {
+      "id": "native-pdf-page-import",
+      "title": "Native PDF Page Import",
+      "category": "Document input",
+      "status": "implemented",
+      "summary": "Composite PDF parts can preserve original page content graphs, geometry, rotation, and safe URI links through native-page composition, with explicit policy enforcement and visual fallback evidence.",
+      "documentation": "catalog/native-pdf-page-import.md",
+      "implementation": [
+        "services/rune/src/import/Rune.Pdf/NativePdfImportPlanner.cs",
+        "services/rune/src/application/Rune.Application/DocumentRenderApplication.cs",
+        "services/rune/src/engine/Rune.Export.Pdf/NativePdfPageComposer.cs",
+        "services/rune/src/engine/Rune.Browser/PlaywrightRenderService.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Pdf.Tests/PdfImportServiceTests.cs",
+        "services/rune/tests/Rune.Browser.Tests/NativePdfPageComposerTests.cs",
+        "services/rune/tests/Rune.Pdf.Tests/NativePdfCorpusTests.cs",
+        "scripts/verify_native_pdf_pipeline.py"
+      ]
+    },
+    {
+      "id": "distributed-resilience",
+      "title": "Distributed Resilience",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Two-API/two-Worker qualification with monotonic job fencing, owner-aware publication, recovery, and duplicate-safe completion.",
+      "documentation": "catalog/distributed-resilience.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Job.Contracts/JobContracts.cs",
+        "services/rune/src/abstractions/Rune.Storage.Abstractions/StorageAbstractions.cs",
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "docker-compose.resilience.yml"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Jobs.Tests/JobStoreTests.cs",
+        "scripts/verify_multi_node_resilience.py"
+      ]
+    },
+    {
+      "id": "resilience-observability",
+      "title": "Resilience Observability",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Prometheus metrics for distributed job state, durations, redelivery, idempotency, cache, fencing, temporary files, and Chromium processes.",
+      "documentation": "catalog/resilience-observability.md",
+      "implementation": [
+        "services/rune/src/abstractions/Rune.Storage.Abstractions/ResilienceSupport.cs",
+        "services/rune/apps/rune-api/Program.cs",
+        "services/rune/apps/rune-worker/Program.cs"
+      ],
+      "tests": [
+        "scripts/verify_resilience_contract.py",
+        "scripts/verify_multi_node_resilience.py"
+      ]
+    },
+    {
+      "id": "failure-injection",
+      "title": "Failure Injection",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Opt-in deterministic failures around rendering, temporary writes, rename, commit, acknowledgement, and upload.",
+      "documentation": "catalog/failure-injection.md",
+      "implementation": [
+        "services/rune/src/abstractions/Rune.Storage.Abstractions/ResilienceSupport.cs",
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderCache.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs",
+        "services/rune/apps/rune-worker/Program.cs"
+      ],
+      "tests": [
+        "scripts/verify_resilience_contract.py",
+        "scripts/verify_multi_node_resilience.py"
+      ]
+    },
+    {
+      "id": "resilience-load-and-soak",
+      "title": "Resilience Load And Soak",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "Smoke, short load, sustained, and short-soak runners with throughput, percentile, resource, retry, duplicate, cache, and temporary-file evidence.",
+      "documentation": "catalog/resilience-load-and-soak.md",
+      "implementation": [
+        "scripts/run_resilience_load.py",
+        "docker-compose.resilience.yml"
+      ],
+      "tests": [
+        "scripts/verify_resilience_contract.py",
+        "scripts/run_resilience_load.py"
+      ]
+    },
+    {
+      "id": "durable-command-outbox",
+      "title": "Durable Command Outbox",
+      "category": "Jobs and messaging",
+      "status": "implemented",
+      "summary": "Job creation and requeue persist deterministic command-publication intent with retry, publisher leases, fencing, and reconciliation.",
+      "documentation": "catalog/durable-command-outbox.md",
+      "implementation": [
+        "services/rune/src/application/Rune.Application/RenderCommandOutbox.cs",
+        "services/rune/src/application/Rune.Jobs/FileSystemRenderJobStore.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Jobs.Tests/JobStoreTests.cs"
+      ]
+    },
+    {
+      "id": "dead-letter-and-replay",
+      "title": "Dead Letter And Replay",
+      "category": "Jobs and messaging",
+      "status": "implemented",
+      "summary": "Non-retryable commands receive explicit terminal state, a versioned dead-letter event, JetStream termination, listing, and safe replay.",
+      "documentation": "catalog/dead-letter-and-replay.md",
+      "implementation": [
+        "messaging/nats/src/Rune.Messaging.Nats/NatsMessaging.cs",
+        "services/rune/apps/rune-worker/Program.cs",
+        "services/rune/apps/rune-api/Program.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Jobs.Tests/JobStoreTests.cs",
+        "messaging/nats/tests/Rune.Messaging.Nats.Tests/NatsContractTests.cs"
+      ]
+    },
+    {
+      "id": "distributed-tracing",
+      "title": "Distributed Tracing",
+      "category": "API and operations",
+      "status": "implemented",
+      "summary": "W3C trace context, ActivitySource, Meter, and lifecycle propagation connect API, dispatch, NATS, Worker, and rendering boundaries.",
+      "documentation": "catalog/distributed-tracing.md",
+      "implementation": [
+        "services/rune/src/contracts/Rune.Event.Contracts/EventContracts.cs",
+        "services/rune/src/application/Rune.Application/RenderCommandOutbox.cs",
+        "services/rune/src/application/Rune.RenderProcessing/RenderJobProcessor.cs"
+      ],
+      "tests": [
+        "services/rune/tests/Rune.Jobs.Tests/JobStoreTests.cs"
+      ]
+    }
+  ]
+}

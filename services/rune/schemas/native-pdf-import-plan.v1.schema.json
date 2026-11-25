@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/native-pdf-import-plan.v1.schema.json",
+  "title": "RUNE native PDF import plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "importId",
+    "resourcePath",
+    "requestedMode",
+    "appliedMode",
+    "signatures",
+    "forms",
+    "annotations",
+    "javaScript",
+    "fallback",
+    "signatureDetected",
+    "formDetected",
+    "javaScriptDetected",
+    "attachmentDetected",
+    "commentDetected",
+    "pages",
+    "warnings"
+  ],
+  "properties": {
+    "importId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$"
+    },
+    "resourcePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestedMode": {
+      "const": "native-page"
+    },
+    "appliedMode": {
+      "enum": [
+        "native-page",
+        "visual"
+      ]
+    },
+    "fallbackReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "password": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "writeOnly": true
+    },
+    "signatures": {
+      "enum": [
+        "reject",
+        "flatten",
+        "ignore"
+      ]
+    },
+    "forms": {
+      "enum": [
+        "flatten",
+        "reject"
+      ]
+    },
+    "annotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "links",
+        "comments",
+        "attachments"
+      ],
+      "properties": {
+        "links": {
+          "enum": [
+            "preserve",
+            "remove"
+          ]
+        },
+        "comments": {
+          "enum": [
+            "flatten",
+            "reject",
+            "remove"
+          ]
+        },
+        "attachments": {
+          "enum": [
+            "reject",
+            "remove"
+          ]
+        }
+      }
+    },
+    "javaScript": {
+      "enum": [
+        "remove",
+        "reject"
+      ]
+    },
+    "fallback": {
+      "enum": [
+        "visual",
+        "reject"
+      ]
+    },
+    "signatureDetected": {
+      "type": "boolean"
+    },
+    "formDetected": {
+      "type": "boolean"
+    },
+    "javaScriptDetected": {
+      "type": "boolean"
+    },
+    "attachmentDetected": {
+      "type": "boolean"
+    },
+    "commentDetected": {
+      "type": "boolean"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourcePage",
+          "marker",
+          "widthPoints",
+          "heightPoints",
+          "rotation",
+          "mediaBox",
+          "links"
+        ],
+        "properties": {
+          "sourcePage": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "marker": {
+            "type": "string",
+            "pattern": "^RUNENATIVE[A-F0-9]{16}[0-9]{6}X$"
+          },
+          "widthPoints": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "heightPoints": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "rotation": {
+            "enum": [
+              0,
+              90,
+              180,
+              270
+            ]
+          },
+          "mediaBox": {
+            "$ref": "#/$defs/box"
+          },
+          "cropBox": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/box"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "trimBox": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/box"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bleedBox": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/box"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "box": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "number"
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x1",
+        "y1",
+        "x2",
+        "y2",
+        "target"
+      ],
+      "properties": {
+        "x1": {
+          "type": "number"
+        },
+        "y1": {
+          "type": "number"
+        },
+        "x2": {
+          "type": "number"
+        },
+        "y2": {
+          "type": "number"
+        },
+        "target": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-job-response.v1.schema.json",
+  "title": "RUNE render job response v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job", "statusUrl", "resultUrl", "eventsUrl", "resultAvailable"],
+  "properties": {
+    "job": { "$ref": "render-job.v1.schema.json" },
+    "statusUrl": { "type": "string" },
+    "resultUrl": { "type": "string" },
+    "eventsUrl": { "type": "string" },
+    "resultAvailable": { "type": "boolean" }
+  }
+}

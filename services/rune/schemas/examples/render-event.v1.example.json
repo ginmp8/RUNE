@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "eventId": "f453a540-c1cc-429b-a3cf-4086600f5f41",
+    "correlationId": "4d808e72-7076-4414-9d0f-a4abef11b727",
+    "causationId": null,
+    "schemaVersion": "1.0",
+    "occurredAt": "2026-07-25T20:00:00Z",
+    "headers": { "source": "rune-api" }
+  },
+  "renderId": "4d808e72-7076-4414-9d0f-a4abef11b727",
+  "packagePath": "4d808e72-7076-4414-9d0f-a4abef11b727/package.json"
+}

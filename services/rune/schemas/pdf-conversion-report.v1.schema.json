@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/pdf-conversion-report.v1.schema.json",
+  "title": "RUNE PDF conversion report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sourceSha256",
+    "sourceBytes",
+    "pdfVersion",
+    "pageCount",
+    "encrypted",
+    "requestedMode",
+    "effectiveMode",
+    "ocrMode",
+    "ocrLanguage",
+    "engines",
+    "pages",
+    "extractedArtifacts",
+    "warnings",
+    "outputBytes",
+    "durationMilliseconds",
+    "atomicPublication"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.1"
+    },
+    "sourceSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceBytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "pdfVersion": {
+      "type": "string"
+    },
+    "pageCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "encrypted": {
+      "type": "boolean"
+    },
+    "requestedMode": {
+      "enum": [
+        "visual",
+        "semantic",
+        "hybrid",
+        "native-page"
+      ]
+    },
+    "effectiveMode": {
+      "enum": [
+        "visual",
+        "semantic",
+        "hybrid",
+        "native-page"
+      ]
+    },
+    "ocrMode": {
+      "enum": [
+        "off",
+        "auto",
+        "force"
+      ]
+    },
+    "ocrLanguage": {
+      "type": "string"
+    },
+    "engines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "version",
+          "license",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "page",
+          "widthPoints",
+          "heightPoints",
+          "rotation",
+          "strategy",
+          "confidence",
+          "fallback",
+          "wordCount",
+          "imageCount",
+          "linkCount"
+        ],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "widthPoints": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "heightPoints": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "rotation": {
+            "type": "integer"
+          },
+          "strategy": {
+            "enum": [
+              "semantic-reflow",
+              "visual-raster",
+              "ocr-visual-text"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "fallback": {
+            "type": "boolean"
+          },
+          "fallbackReason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "wordCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "imageCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "linkCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "extractedArtifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fileName",
+          "contentType",
+          "bytes",
+          "sha256",
+          "page"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+$"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputBytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "durationMilliseconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "atomicPublication": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rune.Browser</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Rune.Core/Rune.Core.csproj" />
+    <ProjectReference Include="../../contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+    <ProjectReference Include="../Rune.Export.Pdf/Rune.Export.Pdf.csproj" />
+    <ProjectReference Include="../Rune.Export.Image/Rune.Export.Image.csproj" />
+    <ProjectReference Include="../Rune.Rendering/Rune.Rendering.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="PdfLexer" />
+  </ItemGroup>
+</Project>

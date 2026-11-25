@@ -1,0 +1,27 @@
+<Solution>
+  <Project Path="apps/rune-api/Rune.Api.csproj" />
+  <Project Path="apps/rune-worker/Rune.Worker.csproj" />
+  <Project Path="apps/rune-cli/Rune.Cli.csproj" />
+  <Project Path="sdk/dotnet/Rune.Client/Rune.Client.csproj" />
+  <Project Path="src/contracts/Rune.Api.Contracts/Rune.Api.Contracts.csproj" />
+  <Project Path="src/contracts/Rune.Job.Contracts/Rune.Job.Contracts.csproj" />
+  <Project Path="src/contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+  <Project Path="src/abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+  <Project Path="src/abstractions/Rune.Storage.Abstractions/Rune.Storage.Abstractions.csproj" />
+  <Project Path="src/engine/Rune.Core/Rune.Core.csproj" />
+  <Project Path="src/engine/Rune.Security/Rune.Security.csproj" />
+  <Project Path="src/engine/Rune.Markdown/Rune.Markdown.csproj" />
+  <Project Path="src/engine/Rune.Ownership/Rune.Ownership.csproj" />
+  <Project Path="src/engine/Rune.ReactFlow/Rune.ReactFlow.csproj" />
+  <Project Path="src/engine/Rune.Html/Rune.Html.csproj" />
+  <Project Path="src/engine/Rune.Rendering/Rune.Rendering.csproj" />
+  <Project Path="src/engine/Rune.Browser/Rune.Browser.csproj" />
+  <Project Path="src/engine/Rune.Export.Pdf/Rune.Export.Pdf.csproj" />
+  <Project Path="src/engine/Rune.Export.Image/Rune.Export.Image.csproj" />
+  <Project Path="src/application/Rune.Application/Rune.Application.csproj" />
+  <Project Path="src/application/Rune.Jobs/Rune.Jobs.csproj" />
+  <Project Path="tests/Rune.Engine.Tests/Rune.Engine.Tests.csproj" />
+  <Project Path="tests/Rune.Jobs.Tests/Rune.Jobs.Tests.csproj" />
+  <Project Path="tests/Rune.Browser.Tests/Rune.Browser.Tests.csproj" />
+  <Project Path="tools/Rune.Validation/Rune.Validation.csproj" />
+</Solution>

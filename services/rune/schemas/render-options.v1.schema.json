@@ -1,0 +1,830 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-options.v1.schema.json",
+  "title": "RUNE render options v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "theme": {
+      "enum": [
+        "professional",
+        "minimal",
+        "dark"
+      ],
+      "default": "professional"
+    },
+    "pageSize": {
+      "type": "string",
+      "minLength": 1,
+      "default": "A4"
+    },
+    "landscape": {
+      "type": "boolean",
+      "default": false
+    },
+    "printBackground": {
+      "type": "boolean",
+      "default": true
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 320,
+      "maximum": 8000,
+      "default": 1440
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 240,
+      "maximum": 8000,
+      "default": 1000
+    },
+    "timeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 300,
+      "default": 45
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 35,
+      "default": "en"
+    },
+    "direction": {
+      "enum": [
+        "ltr",
+        "rtl",
+        "auto"
+      ],
+      "default": "ltr"
+    },
+    "includeCover": {
+      "type": "boolean",
+      "default": false
+    },
+    "includeToc": {
+      "type": "boolean",
+      "default": false
+    },
+    "numberHeadings": {
+      "type": "boolean",
+      "default": false
+    },
+    "headerTemplate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "footerTemplate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "marginTop": {
+      "type": "string",
+      "default": "20mm"
+    },
+    "marginRight": {
+      "type": "string",
+      "default": "18mm"
+    },
+    "marginBottom": {
+      "type": "string",
+      "default": "20mm"
+    },
+    "marginLeft": {
+      "type": "string",
+      "default": "18mm"
+    },
+    "additionalCss": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000000
+    },
+    "watermark": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 500
+    },
+    "tagged": {
+      "type": "boolean",
+      "default": true
+    },
+    "outline": {
+      "type": "boolean",
+      "default": true
+    },
+    "coverTitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverSubtitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverAuthor": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverOrganization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverStatus": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverDescription": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverDate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coverImage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "embedSource": {
+      "type": "boolean",
+      "default": false
+    },
+    "applyFrontMatter": {
+      "type": "boolean",
+      "default": true
+    },
+    "jpegQuality": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 90
+    },
+    "pdfAConformance": {
+      "enum": [
+        "1b",
+        "2b",
+        "3b"
+      ],
+      "default": "2b"
+    },
+    "pageDecorations": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "$ref": "#/$defs/pageDecorationTemplate"
+        },
+        "first": {
+          "$ref": "#/$defs/pageDecorationTemplate"
+        },
+        "left": {
+          "$ref": "#/$defs/pageDecorationTemplate"
+        },
+        "right": {
+          "$ref": "#/$defs/pageDecorationTemplate"
+        },
+        "rules": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/$defs/pageDecorationRule"
+          }
+        },
+        "twoPassPdfComposition": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "fonts": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "faces"
+      ],
+      "properties": {
+        "faces": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/fontFace"
+          }
+        },
+        "defaultFamily": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "fallbackFamilies": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "maxItems": 16,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "missingFacePolicy": {
+          "enum": [
+            "fail"
+          ],
+          "default": "fail"
+        },
+        "missingGlyphPolicy": {
+          "enum": [
+            "fallback",
+            "fail"
+          ],
+          "default": "fallback"
+        },
+        "embedPolicy": {
+          "enum": [
+            "required"
+          ],
+          "default": "required"
+        },
+        "subsetPolicy": {
+          "enum": [
+            "full",
+            "auto"
+          ],
+          "default": "full"
+        },
+        "licensePolicy": {
+          "enum": [
+            "allow",
+            "deny",
+            "requireMetadata"
+          ],
+          "default": "allow"
+        },
+        "allowedLicenses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "deniedLicenses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "analyzeGlyphCoverage": {
+          "type": "boolean",
+          "default": false
+        },
+        "requiredCharacters": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100000
+        },
+        "physicalSubset": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "enum": [
+                "disabled",
+                "opportunistic",
+                "required"
+              ],
+              "default": "opportunistic"
+            },
+            "blockCurrentRequest": {
+              "type": "boolean",
+              "default": false
+            },
+            "minimumFontSizeBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000,
+              "default": 500000
+            },
+            "maximumUsedGlyphRatio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.35
+            },
+            "minimumEstimatedSavingBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000,
+              "default": 200000
+            },
+            "maximumFontsPerDocument": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32,
+              "default": 8
+            },
+            "decisionBudgetMilliseconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 25
+            },
+            "subsetterVersion": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "default": "fonttools-v1"
+            }
+          }
+        },
+        "sanitization": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "requireSuccess": {
+              "type": "boolean",
+              "default": true
+            },
+            "timeoutSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 120,
+              "default": 20
+            },
+            "validatorVersion": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "default": "fonttools-v1"
+            },
+            "policyVersion": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "default": "1"
+            }
+          }
+        },
+        "builtInFallbackPack": {
+          "type": "string",
+          "enum": [
+            "rune-deterministic-fonts-v1"
+          ],
+          "default": "rune-deterministic-fonts-v1"
+        },
+        "builtInFallbackPackSha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "fontReadinessTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300,
+          "default": 20
+        },
+        "disableHostFontLookup": {
+          "const": true,
+          "default": true
+        },
+        "disableRemoteFontAcquisition": {
+          "const": true,
+          "default": true
+        }
+      }
+    },
+    "cachePolicy": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "bypass",
+            "read",
+            "write",
+            "use",
+            "refresh"
+          ],
+          "default": "bypass"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "default": "deployment"
+        },
+        "maximumAgeSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31536000,
+          "default": 86400
+        },
+        "storeResult": {
+          "type": "boolean",
+          "default": true
+        },
+        "requireDeterministicInputs": {
+          "type": "boolean",
+          "default": true
+        },
+        "maximumScopeBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000000000,
+          "default": 1000000000
+        },
+        "maximumScopeEntries": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000,
+          "default": 10000
+        },
+        "distributedLockTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3600,
+          "default": 120
+        },
+        "staleLockSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400,
+          "default": 300
+        },
+        "invalidationToken": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "store": {
+          "enum": [
+            "filesystem",
+            "shared-filesystem"
+          ],
+          "default": "filesystem"
+        },
+        "reauthorizeOnHit": {
+          "type": "boolean",
+          "default": true
+        },
+        "quarantineCorruptEntries": {
+          "type": "boolean",
+          "default": true
+        },
+        "preservePriorEntryOnRefreshFailure": {
+          "type": "boolean",
+          "default": true
+        },
+        "encryptSensitiveEntries": {
+          "type": "boolean",
+          "default": false
+        },
+        "securityLabel": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        }
+      }
+    },
+    "emitStructureMap": {
+      "type": "boolean",
+      "default": false,
+      "description": "Emit structure-map.json beside PDF/PDF-A artifacts by placing temporary semantic markers in a mapping print, extracting their physical PDF pages, removing the markers, and producing the final clean PDF."
+    }
+  },
+  "$defs": {
+    "pageDecorationTemplate": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "header": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000
+        },
+        "footer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000
+        },
+        "headerAlignment": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "default": "center"
+        },
+        "footerAlignment": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "default": "center"
+        },
+        "headerRegion": {
+          "$ref": "#/$defs/pageDecorationRegion"
+        },
+        "footerRegion": {
+          "$ref": "#/$defs/pageDecorationRegion"
+        }
+      }
+    },
+    "pageDecorationRegion": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "format": {
+          "enum": [
+            "text",
+            "markdown",
+            "html"
+          ],
+          "default": "text"
+        },
+        "alignment": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "default": "center"
+        },
+        "overflowPolicy": {
+          "enum": [
+            "error",
+            "scale",
+            "clip"
+          ],
+          "default": "error"
+        },
+        "minimumScale": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1.0,
+          "default": 0.75
+        },
+        "css": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 20000
+        }
+      }
+    },
+    "fontFace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "resourcePath"
+      ],
+      "properties": {
+        "family": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "resourcePath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 400
+        },
+        "style": {
+          "enum": [
+            "normal",
+            "italic",
+            "oblique"
+          ],
+          "default": "normal"
+        },
+        "stretch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "default": "normal"
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9A-Fa-f]{64}$"
+        },
+        "licenseSpdx": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "licenseAllowsEmbedding": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "physicalPageRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        }
+      }
+    },
+    "pageDecorationSelector": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "physicalPages": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "maxItems": 1000,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          }
+        },
+        "physicalPageRanges": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/physicalPageRange"
+          }
+        },
+        "namedSections": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "maxItems": 1000,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "parity": {
+          "enum": [
+            "any",
+            "left",
+            "right"
+          ],
+          "default": "any"
+        }
+      }
+    },
+    "pageDecorationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "selector",
+        "template"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "selector": {
+          "$ref": "#/$defs/pageDecorationSelector"
+        },
+        "template": {
+          "$ref": "#/$defs/pageDecorationTemplate"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": -10000,
+          "maximum": 10000,
+          "default": 0
+        }
+      }
+    }
+  }
+}

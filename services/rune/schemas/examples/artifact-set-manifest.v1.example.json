@@ -1,0 +1,23 @@
+{
+  "contractVersion": "1.0",
+  "renderId": "00000000-0000-0000-0000-000000000011",
+  "createdAt": "2026-07-28T12:00:00Z",
+  "artifacts": [
+    {
+      "format": "pdf",
+      "fileName": "document.pdf",
+      "contentType": "application/pdf",
+      "length": 1024,
+      "sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "leaseToken": 1,
+      "validation": "passed",
+      "producer": "rune"
+    }
+  ],
+  "atomicPublication": true,
+  "sharedStorageTransaction": true,
+  "commitProtocol": "stage-verify-rename",
+  "selectedOutputs": [
+    "pdf"
+  ]
+}

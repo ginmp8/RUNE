@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/artifact-set-manifest.v1.schema.json",
+  "title": "RUNE atomic artifact-set manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "renderId",
+    "createdAt",
+    "artifacts",
+    "atomicPublication",
+    "commitProtocol"
+  ],
+  "properties": {
+    "contractVersion": {
+      "const": "1.0"
+    },
+    "renderId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "atomicPublication": {
+      "const": true
+    },
+    "sharedStorageTransaction": {
+      "type": "boolean"
+    },
+    "commitProtocol": {
+      "const": "stage-verify-rename"
+    },
+    "artifactSetId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sourceSha256": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "renderFingerprint": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selectedOutputs": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "interactiveHtml",
+          "structuredJson",
+          "staticHtml",
+          "pdf",
+          "pdfA",
+          "png",
+          "jpeg",
+          "svg"
+        ]
+      }
+    },
+    "runtime": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "sharedIntermediates": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[A-Fa-f0-9]{64}$"
+      }
+    },
+    "manifestSha256": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "fileName",
+        "contentType",
+        "length",
+        "sha256"
+      ],
+      "properties": {
+        "format": {
+          "enum": [
+            "interactiveHtml",
+            "structuredJson",
+            "staticHtml",
+            "pdf",
+            "pdfA",
+            "png",
+            "jpeg",
+            "svg"
+          ]
+        },
+        "fileName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "contentType": {
+          "type": "string",
+          "minLength": 3
+        },
+        "length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "cacheStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cacheFingerprint": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Fa-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cacheSourceRenderId": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "leaseToken": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "validation": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "validator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "derivedFrom": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sharedIntermediateSha256": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Fa-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

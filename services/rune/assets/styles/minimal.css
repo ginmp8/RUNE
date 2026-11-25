@@ -1,0 +1,4 @@
+:root { --accent: #111827; --surface: #fafafa; --border: #e5e7eb; --code-bg: #f7f7f7; }
+body { font-family: Georgia, "Times New Roman", serif; }
+code, pre, kbd { font-family: "Cascadia Code", Consolas, monospace; }
+h1, h2, h3 { font-weight: 600; letter-spacing: -.01em; }

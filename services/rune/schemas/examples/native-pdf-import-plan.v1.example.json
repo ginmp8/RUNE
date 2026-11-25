@@ -1,0 +1,55 @@
+{
+  "importId": "0123456789abcdef",
+  "resourcePath": "parts/source.pdf",
+  "requestedMode": "native-page",
+  "appliedMode": "native-page",
+  "fallbackReason": null,
+  "password": null,
+  "signatures": "reject",
+  "forms": "flatten",
+  "annotations": {
+    "links": "preserve",
+    "comments": "flatten",
+    "attachments": "reject"
+  },
+  "javaScript": "remove",
+  "fallback": "visual",
+  "signatureDetected": false,
+  "formDetected": false,
+  "javaScriptDetected": false,
+  "attachmentDetected": false,
+  "commentDetected": false,
+  "pages": [
+    {
+      "sourcePage": 1,
+      "marker": "RUNENATIVE0123456789ABCDEF000001X",
+      "widthPoints": 612,
+      "heightPoints": 792,
+      "rotation": 0,
+      "mediaBox": [
+        0,
+        0,
+        612,
+        792
+      ],
+      "cropBox": [
+        0,
+        0,
+        612,
+        792
+      ],
+      "trimBox": null,
+      "bleedBox": null,
+      "links": [
+        {
+          "x1": 72,
+          "y1": 72,
+          "x2": 180,
+          "y2": 90,
+          "target": "https://example.com"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

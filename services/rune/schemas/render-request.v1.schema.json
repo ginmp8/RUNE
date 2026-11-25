@@ -1,0 +1,884 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/render-request.v1.schema.json",
+  "title": "RUNE render request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sourceType"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "sourceType": {
+            "const": "pdf"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "sourceResourcePath",
+          "pdfImport",
+          "resources"
+        ],
+        "properties": {
+          "content": {
+            "maxLength": 0
+          },
+          "outputFormat": {
+            "const": "staticHtml"
+          },
+          "outputFormats": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sourceType": {
+            "enum": [
+              "markdown",
+              "html"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sourceType": {
+            "const": "template"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "template",
+          "resources"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "content"
+            ],
+            "properties": {
+              "content": {
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "properties": {
+              "template": {
+                "required": [
+                  "templateResourcePath"
+                ],
+                "properties": {
+                  "templateResourcePath": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sourceType": {
+            "const": "composite"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "composite"
+        ],
+        "properties": {
+          "content": {
+            "maxLength": 0
+          }
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "required": [
+            "outputFormat"
+          ],
+          "not": {
+            "required": [
+              "outputFormats"
+            ]
+          }
+        },
+        {
+          "required": [
+            "outputFormats"
+          ],
+          "not": {
+            "required": [
+              "outputFormat"
+            ]
+          }
+        },
+        {
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "outputFormat"
+                ]
+              },
+              {
+                "required": [
+                  "outputFormats"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "sourceType": {
+      "enum": [
+        "markdown",
+        "html",
+        "pdf",
+        "template",
+        "composite"
+      ]
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 10000000,
+      "default": ""
+    },
+    "outputFormat": {
+      "enum": [
+        "interactiveHtml",
+        "staticHtml",
+        "structuredJson",
+        "pdf",
+        "pdfA",
+        "png",
+        "jpeg",
+        "svg"
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "htmlTrustMode": {
+      "enum": [
+        "safe",
+        "trusted"
+      ],
+      "default": "safe"
+    },
+    "documentName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "default": "document.md"
+    },
+    "idempotencyKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200
+    },
+    "waitForCompletion": {
+      "type": "boolean",
+      "default": false
+    },
+    "waitTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "default": 5
+    },
+    "sourceResourcePath": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "pdfImport": {
+      "oneOf": [
+        {
+          "$ref": "pdf-import-options.v1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resources": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "contentBase64"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "contentBase64": {
+            "type": "string",
+            "contentEncoding": "base64"
+          },
+          "contentType": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$"
+          }
+        }
+      }
+    },
+    "options": {
+      "$ref": "render-options.v1.schema.json"
+    },
+    "outputFormats": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "interactiveHtml",
+          "staticHtml",
+          "structuredJson",
+          "pdf",
+          "pdfA",
+          "png",
+          "jpeg",
+          "svg"
+        ]
+      }
+    },
+    "template": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "syntax": {
+          "const": "rune-template-v1",
+          "default": "rune-template-v1"
+        },
+        "contentType": {
+          "enum": [
+            "markdown",
+            "html"
+          ],
+          "default": "markdown"
+        },
+        "templateResourcePath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "dataResourcePath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "default": "data.json"
+        },
+        "dataSchemaResourcePath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "missingValuePolicy": {
+          "enum": [
+            "fail",
+            "empty"
+          ],
+          "default": "fail"
+        },
+        "maximumIterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000,
+          "default": 10000
+        },
+        "maximumOutputCharacters": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000,
+          "default": 10000000
+        },
+        "partialsResourcePrefix": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "default": "partials/"
+        },
+        "allowRawInterpolation": {
+          "type": "boolean",
+          "default": false
+        },
+        "allowedHelpers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "uniqueItems": true,
+          "maxItems": 16,
+          "items": {
+            "enum": [
+              "upper",
+              "lower",
+              "trim",
+              "default",
+              "number",
+              "currency",
+              "date",
+              "json",
+              "join"
+            ]
+          }
+        },
+        "culture": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50,
+          "default": "en-US"
+        },
+        "customHelpers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "operations"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+              },
+              "operations": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operation"
+                  ],
+                  "properties": {
+                    "operation": {
+                      "enum": [
+                        "upper",
+                        "lower",
+                        "trim",
+                        "prefix",
+                        "suffix",
+                        "replace",
+                        "regex-replace",
+                        "default",
+                        "substring"
+                      ]
+                    },
+                    "argument": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "maxLength": 2000
+                    },
+                    "secondArgument": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "maxLength": 2000
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "strict": {
+          "type": "boolean",
+          "default": true
+        },
+        "timeZone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "default": "UTC"
+        },
+        "escapingMode": {
+          "enum": [
+            "contextual",
+            "plainText"
+          ],
+          "default": "contextual"
+        },
+        "maximumDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256,
+          "default": 64
+        },
+        "maximumPartialDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128,
+          "default": 32
+        },
+        "maximumInstructionSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000,
+          "default": 1000000
+        },
+        "maximumLoopIterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000,
+          "default": 100000
+        },
+        "maximumGlobalLoopIterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000,
+          "default": 1000000
+        },
+        "maximumSchemaErrors": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000,
+          "default": 100
+        },
+        "applySchemaDefaults": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "composite": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/compositeDocument"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "multiOutput": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomicPolicy": {
+              "const": "required",
+              "default": "required"
+            },
+            "packageMode": {
+              "enum": [
+                "none",
+                "zip"
+              ],
+              "default": "none"
+            },
+            "artifactNamePattern": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240,
+              "default": "{documentName}.{outputExtension}"
+            },
+            "includeManifest": {
+              "type": "boolean",
+              "default": true
+            },
+            "includeProvenance": {
+              "type": "boolean",
+              "default": true
+            },
+            "maximumZipBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000000,
+              "default": 500000000
+            },
+            "maximumZipEntries": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128,
+              "default": 32
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "compositeDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parts"
+      ],
+      "properties": {
+        "parts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/compositePart"
+          }
+        },
+        "includePartTitles": {
+          "type": "boolean",
+          "default": false
+        },
+        "pageBreakBetweenParts": {
+          "type": "boolean",
+          "default": true
+        },
+        "rewriteTableOfContents": {
+          "type": "boolean",
+          "default": false
+        },
+        "maximumDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "default": 8
+        }
+      }
+    },
+    "compositePart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sourceType"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
+        },
+        "sourceType": {
+          "enum": [
+            "markdown",
+            "html",
+            "pdf",
+            "template",
+            "composite"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 10000000,
+          "default": ""
+        },
+        "resourcePath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "template": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "syntax": {
+              "const": "rune-template-v1",
+              "default": "rune-template-v1"
+            },
+            "contentType": {
+              "enum": [
+                "markdown",
+                "html"
+              ],
+              "default": "markdown"
+            },
+            "templateResourcePath": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "dataResourcePath": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "default": "data.json"
+            },
+            "dataSchemaResourcePath": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "missingValuePolicy": {
+              "enum": [
+                "fail",
+                "empty"
+              ],
+              "default": "fail"
+            },
+            "maximumIterations": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000,
+              "default": 10000
+            },
+            "maximumOutputCharacters": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000,
+              "default": 10000000
+            },
+            "partialsResourcePrefix": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300,
+              "default": "partials/"
+            },
+            "allowRawInterpolation": {
+              "type": "boolean",
+              "default": false
+            },
+            "allowedHelpers": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "uniqueItems": true,
+              "maxItems": 16,
+              "items": {
+                "enum": [
+                  "upper",
+                  "lower",
+                  "trim",
+                  "default",
+                  "number",
+                  "currency",
+                  "date",
+                  "json",
+                  "join"
+                ]
+              }
+            },
+            "culture": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 50,
+              "default": "en-US"
+            },
+            "customHelpers": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "maxItems": 32,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "operations"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+                  },
+                  "operations": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 16,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "operation"
+                      ],
+                      "properties": {
+                        "operation": {
+                          "enum": [
+                            "upper",
+                            "lower",
+                            "trim",
+                            "prefix",
+                            "suffix",
+                            "replace",
+                            "regex-replace",
+                            "default",
+                            "substring"
+                          ]
+                        },
+                        "argument": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "maxLength": 2000
+                        },
+                        "secondArgument": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "maxLength": 2000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "htmlTrustMode": {
+          "enum": [
+            "safe",
+            "trusted"
+          ],
+          "default": "safe"
+        },
+        "startOnNewPage": {
+          "type": "boolean",
+          "default": true
+        },
+        "composite": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/compositeDocument"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pageSize": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "landscape": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "marginTop": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "marginRight": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "marginBottom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "marginLeft": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "pdfImport": {
+          "oneOf": [
+            {
+              "$ref": "pdf-import-options.v1.schema.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

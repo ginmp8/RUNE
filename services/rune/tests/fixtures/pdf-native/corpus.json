@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "generate_corpus.py",
+  "generatedAt": "2026-07-27T00:00:00Z",
+  "comparisonDimensions": [
+    "pixels",
+    "extractedText",
+    "pageCount",
+    "pageDimensions",
+    "pageBoxes",
+    "rotation",
+    "links",
+    "outputBytes",
+    "fonts",
+    "requestedMode",
+    "appliedMode",
+    "fallbackReason"
+  ],
+  "cases": [
+    {
+      "file": "reportlab-subset-vectors-links.pdf",
+      "producer": "ReportLab",
+      "coverage": [
+        "simple",
+        "subset-font",
+        "vectors",
+        "links"
+      ],
+      "expectedOutcome": "native-page",
+      "expectedReason": null
+    },
+    {
+      "file": "reportlab-alpha-transparency.pdf",
+      "producer": "ReportLab/Pillow",
+      "coverage": [
+        "alpha-image",
+        "transparency",
+        "vectors"
+      ],
+      "expectedOutcome": "native-page",
+      "expectedReason": null
+    },
+    {
+      "file": "reportlab-mixed-geometry.pdf",
+      "producer": "ReportLab",
+      "coverage": [
+        "mixed-page-sizes",
+        "rotation",
+        "original-dimensions"
+      ],
+      "expectedOutcome": "native-page",
+      "expectedReason": null
+    },
+    {
+      "file": "rune-type3-font.pdf",
+      "producer": "RUNE manual PDF writer",
+      "coverage": [
+        "type3-font",
+        "vectors",
+        "selectable-text"
+      ],
+      "expectedOutcome": "native-page",
+      "expectedReason": null
+    },
+    {
+      "file": "rune-object-stream.pdf",
+      "producer": "RUNE manual PDF 1.5 writer",
+      "coverage": [
+        "object-stream"
+      ],
+      "expectedOutcome": "visual",
+      "expectedReason": "unsupported-object-stream"
+    },
+    {
+      "file": "ghostscript-producer.pdf",
+      "producer": "Ghostscript",
+      "coverage": [
+        "different-producer",
+        "vectors",
+        "text",
+        "object-stream"
+      ],
+      "expectedOutcome": "visual",
+      "expectedReason": "unsupported-object-stream"
+    },
+    {
+      "file": "reportlab-form.pdf",
+      "producer": "ReportLab",
+      "coverage": [
+        "forms"
+      ],
+      "expectedOutcome": "visual",
+      "expectedReason": "form-flatten-required"
+    },
+    {
+      "file": "reportlab-comment.pdf",
+      "producer": "ReportLab",
+      "coverage": [
+        "annotations",
+        "comments"
+      ],
+      "expectedOutcome": "visual",
+      "expectedReason": "comment-flatten-required"
+    },
+    {
+      "file": "pypdf-signature.pdf",
+      "producer": "pypdf",
+      "coverage": [
+        "signatures"
+      ],
+      "expectedOutcome": "reject",
+      "expectedReason": "pdf-signature-rejected"
+    },
+    {
+      "file": "pypdf-attachment.pdf",
+      "producer": "pypdf",
+      "coverage": [
+        "attachments"
+      ],
+      "expectedOutcome": "reject",
+      "expectedReason": "pdf-attachment-rejected"
+    },
+    {
+      "file": "pypdf-javascript.pdf",
+      "producer": "pypdf",
+      "coverage": [
+        "javascript"
+      ],
+      "expectedOutcome": "native-page",
+      "expectedReason": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "sourceType": "markdown",
+  "content": "# RUNE example\n\nA versioned render request.",
+  "outputFormat": "pdf",
+  "htmlTrustMode": "safe",
+  "documentName": "example.md",
+  "idempotencyKey": "example-render-001",
+  "waitForCompletion": false,
+  "waitTimeoutSeconds": 5,
+  "resources": [],
+  "options": {
+    "theme": "professional",
+    "pageSize": "A4",
+    "timeoutSeconds": 45
+  }
+}

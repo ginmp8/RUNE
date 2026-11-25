@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/pdf-import-options.v1.schema.json",
+  "title": "RUNE PDF import options v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mode"
+  ],
+  "properties": {
+    "mode": {
+      "enum": [
+        "visual",
+        "semantic",
+        "hybrid",
+        "native-page"
+      ],
+      "default": "hybrid"
+    },
+    "ocrMode": {
+      "enum": [
+        "off",
+        "auto",
+        "force"
+      ],
+      "default": "off"
+    },
+    "ocrLanguage": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_+.-]{2,64}$",
+      "default": "eng"
+    },
+    "password": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "writeOnly": true
+    },
+    "semanticConfidenceThreshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 0.65
+    },
+    "maximumPages": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2000,
+      "default": 200
+    },
+    "maximumSourceBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 500000000,
+      "default": 25000000
+    },
+    "maximumOutputBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000000,
+      "default": 150000000
+    },
+    "visualScale": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 4,
+      "default": 1.5
+    },
+    "emitRegionDiagnostics": {
+      "type": "boolean",
+      "default": true
+    },
+    "preserveLinks": {
+      "type": "boolean",
+      "default": false
+    },
+    "extractImages": {
+      "type": "boolean",
+      "default": true
+    },
+    "signatures": {
+      "enum": [
+        "reject",
+        "flatten",
+        "ignore"
+      ],
+      "default": "reject"
+    },
+    "forms": {
+      "enum": [
+        "flatten",
+        "reject"
+      ],
+      "default": "flatten"
+    },
+    "annotations": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "links": {
+          "enum": [
+            "preserve",
+            "remove"
+          ],
+          "default": "preserve"
+        },
+        "comments": {
+          "enum": [
+            "flatten",
+            "reject",
+            "remove"
+          ],
+          "default": "flatten"
+        },
+        "attachments": {
+          "enum": [
+            "reject",
+            "remove"
+          ],
+          "default": "reject"
+        }
+      }
+    },
+    "javascript": {
+      "enum": [
+        "remove",
+        "reject"
+      ],
+      "default": "remove"
+    },
+    "fallback": {
+      "enum": [
+        "visual",
+        "reject"
+      ],
+      "default": "visual"
+    }
+  }
+}

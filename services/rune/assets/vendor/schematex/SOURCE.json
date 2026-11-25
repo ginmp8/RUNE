@@ -1,0 +1,17 @@
+{
+  "package": "schematex",
+  "version": "1.0.1",
+  "source": "https://github.com/SchemaTex/SchemaTex",
+  "license": "AGPL-3.0-only",
+  "npmTarballSha256": "51dff885f6db79425c15c1ce56646178c996a5de308391a7c1ebc8f3645b4d9f",
+  "npmTarballSha512": "16260fc3b227612555ee31c59410ef9a83cbf9a60792552aa1bc8e6b7c62af2d1f59f68c787d90c8d327c92cc16b6ce318d2f07f437c61fe33c8011d4dd303e2",
+  "runtime": "official package/dist/index.js through renderResult",
+  "network": "disabled",
+  "upstreamCommit": "cee9e7b61e8145c41f3793e41e7e33637105484b",
+  "modified": false,
+  "requiredExports": [
+    "render",
+    "renderPreview",
+    "renderResult"
+  ]
+}

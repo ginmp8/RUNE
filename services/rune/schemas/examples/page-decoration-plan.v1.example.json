@@ -1,0 +1,23 @@
+{
+  "contractVersion": "1.0",
+  "requiresTwoPass": true,
+  "preserveTaggedPdf": false,
+  "validateFinalPdfA": true,
+  "fragments": [
+    {
+      "profile": "first",
+      "region": "header",
+      "format": "markdown",
+      "capability": "direct",
+      "overflow": "error",
+      "minimumScale": 0.75,
+      "maximumHeight": "20mm",
+      "tokens": [
+        "title"
+      ],
+      "resources": [],
+      "contentSha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+    }
+  ],
+  "digest": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+}

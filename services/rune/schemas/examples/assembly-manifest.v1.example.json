@@ -1,0 +1,16 @@
+{
+  "contractVersion": "1.0",
+  "mode": "hybrid",
+  "parts": [
+    {
+      "id": "cover",
+      "name": "Cover",
+      "sourceType": "markdown",
+      "sha256": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "preservation": {},
+      "diagnostics": []
+    }
+  ],
+  "crossReferences": [],
+  "diagnostics": []
+}

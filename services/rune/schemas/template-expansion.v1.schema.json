@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/template-expansion.v1.schema.json",
+  "title": "RUNE template expansion provenance v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "engine",
+    "engineVersion",
+    "templateSha256",
+    "dataSha256",
+    "partialDigests",
+    "expandedSha256",
+    "evaluationSteps",
+    "loopIterations",
+    "expandedBytes",
+    "culture",
+    "timeZone"
+  ],
+  "properties": {
+    "engine": {
+      "const": "rune-template-v1"
+    },
+    "engineVersion": {
+      "type": "string"
+    },
+    "templateSha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "dataSha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "schemaSha256": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "partialDigests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[A-Fa-f0-9]{64}$"
+      }
+    },
+    "expandedSha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "evaluationSteps": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "loopIterations": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expandedBytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "culture": {
+      "type": "string"
+    },
+    "timeZone": {
+      "type": "string"
+    }
+  }
+}

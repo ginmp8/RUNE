@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/advisory-database.v1.schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "source", "generatedAt", "coverage", "advisories"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "source": {"type": "string"},
+    "generatedAt": {"type": "string"},
+    "coverage": {"enum": ["complete", "unavailable", "partial"]},
+    "advisories": {"type": "array", "items": {"type": "object", "required": ["id", "package", "versions", "severity", "url"]}}
+  }
+}

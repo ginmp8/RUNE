@@ -1,0 +1,8 @@
+{
+  "package": "mermaid",
+  "version": "11.16.0",
+  "sourceType": "npm-tarball",
+  "upstream": "https://registry.npmjs.org/mermaid/-/mermaid-11.16.0.tgz",
+  "archiveSha256": "ff48c94a0a0458b377a5187ad01407184d2a182e6476c2015b7068ff58355fae",
+  "license": "MIT"
+}

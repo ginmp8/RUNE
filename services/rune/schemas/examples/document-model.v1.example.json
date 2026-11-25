@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "title": "RUNE example",
+  "sourceType": "markdown",
+  "metadata": { "title": "RUNE example" },
+  "nodes": [
+    {
+      "id": "rune-example",
+      "type": "heading",
+      "level": 1,
+      "text": "RUNE example",
+      "html": "<h1 id=\"rune-example\">RUNE example</h1>",
+      "attributes": { "id": "rune-example" },
+      "children": []
+    }
+  ],
+  "diagnostics": [],
+  "requiredRenderers": []
+}

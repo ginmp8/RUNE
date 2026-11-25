@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>Rune.Dispatching.Local</RootNamespace></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../application/Rune.Application/Rune.Application.csproj" />
+    <ProjectReference Include="../../application/Rune.RenderProcessing/Rune.RenderProcessing.csproj" />
+    <ProjectReference Include="../../contracts/Rune.Event.Contracts/Rune.Event.Contracts.csproj" />
+    <ProjectReference Include="../../abstractions/Rune.Messaging.Abstractions/Rune.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="../../abstractions/Rune.Storage.Abstractions/Rune.Storage.Abstractions.csproj" />
+  </ItemGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App" /></ItemGroup>
+</Project>

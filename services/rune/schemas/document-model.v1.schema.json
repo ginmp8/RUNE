@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rune.local/schemas/document-model.v1.schema.json",
+  "title": "RUNE document model v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "title", "sourceType", "metadata", "nodes", "diagnostics", "requiredRenderers"],
+  "properties": {
+    "version": { "const": "1.0" },
+    "title": { "type": "string" },
+    "sourceType": { "enum": ["markdown", "html"] },
+    "metadata": { "type": "object" },
+    "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/diagnostic" } },
+    "requiredRenderers": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "level", "attributes", "children"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "level": { "type": "integer", "minimum": 0 },
+        "text": { "type": ["string", "null"] },
+        "html": { "type": ["string", "null"] },
+        "attributes": { "type": "object" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "severity"],
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "severity": { "enum": ["info", "warning", "error"] },
+        "line": { "type": ["integer", "null"], "minimum": 1 },
+        "column": { "type": ["integer", "null"], "minimum": 1 },
+        "relatedIds": { "type": ["array", "null"], "items": { "type": "string" } }
+      }
+    }
+  }
+}

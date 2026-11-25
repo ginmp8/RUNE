@@ -1,0 +1,28 @@
+{
+  "job": {
+    "id": "4d808e72-7076-4414-9d0f-a4abef11b727",
+    "status": "queued",
+    "outputFormat": "pdf",
+    "options": { "theme": "professional", "pageSize": "A4" },
+    "packagePath": "4d808e72-7076-4414-9d0f-a4abef11b727/package.json",
+    "resultPath": null,
+    "contentType": null,
+    "attempt": 0,
+    "maximumAttempts": 4,
+    "error": null,
+    "createdAt": "2026-07-25T20:00:00Z",
+    "startedAt": null,
+    "completedAt": null,
+    "idempotencyKey": "example-render-001",
+    "claimedBy": null,
+    "leaseExpiresAt": null,
+    "updatedAt": "2026-07-25T20:00:00Z",
+    "progressPercent": 0,
+    "progressStage": "queued",
+    "resultLength": null
+  },
+  "statusUrl": "/v1/renders/4d808e72-7076-4414-9d0f-a4abef11b727",
+  "resultUrl": "/v1/renders/4d808e72-7076-4414-9d0f-a4abef11b727/content",
+  "eventsUrl": "/v1/renders/4d808e72-7076-4414-9d0f-a4abef11b727/events",
+  "resultAvailable": false
+}

@@ -1,0 +1,193 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: Workspace and contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.16.0'
+      - name: Install validation dependencies
+        run: python -m pip install PyYAML==6.0.2 jsonschema==4.25.1
+      - name: Validate workspace, schemas, feature catalog and reference equivalence
+        run: python scripts/validate_workspace.py --root .
+      - name: Validate resilience contract
+        run: python scripts/verify_resilience_contract.py --root .
+      - name: Verify pinned renderer assets
+        run: |
+          set -euo pipefail
+          for vendor in katex mermaid schematex; do
+            (cd "services/rune/assets/vendor/$vendor" && sha256sum --check SHA256SUMS)
+          done
+      - name: Validate Compose definitions
+        run: |
+          docker compose config --quiet
+          docker compose -f docker-compose.resilience.yml config --quiet
+
+  python:
+    name: Python SDK, Studio and tools
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.16.0'
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -r services/rune/apps/rune-studio/requirements.txt pytest==9.1.1 PyYAML==6.0.2 jsonschema==4.25.1
+          python -m pip check
+          python -c "import streamlit; assert streamlit.__version__ == '1.59.2'"
+      - name: Test Studio and tools
+        env:
+          PYTHONPATH: services/rune/apps/rune-studio/src
+        run: python -m pytest -q -ra services/rune/apps/rune-studio/tests services/rune/tools/tests
+      - name: Test Python SDK
+        env:
+          PYTHONPATH: services/rune/sdk/python
+        run: python -m pytest -q -ra services/rune/sdk/python/tests
+
+  typescript:
+    name: TypeScript SDK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: services/rune/sdk/typescript
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.16.0'
+      - name: Install declared compiler
+        run: npm install --ignore-scripts --no-package-lock --no-audit --no-fund
+      - name: Strict typecheck
+        run: npm run typecheck
+      - name: SDK contract test
+        run: node tests/contract.test.mjs
+      - name: Comparison transport behavior
+        run: node --experimental-transform-types --test tests/comparison.test.mjs
+
+  dotnet:
+    name: .NET build and tests (Chromium and JetStream)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      RUNE_RUN_BROWSER_TESTS: '1'
+      RUNE_RUN_NATS_INTEGRATION: '1'
+      RUNE_NATS_URL: nats://127.0.0.1:4222
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.16.0'
+      - name: Install native PDF, OCR and font dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ghostscript icc-profiles-free tesseract-ocr fontconfig fonts-dejavu-core fonts-liberation python3-fonttools python3-brotli imagemagick librsvg2-bin poppler-utils
+      - name: Restore
+        run: dotnet restore RUNE.slnx -p:NuGetAudit=true -p:NuGetAuditMode=all
+      - name: Release build
+        run: dotnet build RUNE.slnx -c Release --no-restore
+      - name: Install pinned Playwright Chromium
+        run: dotnet run --project services/rune/apps/rune-worker/Rune.Worker.csproj -c Release --no-build --no-restore -- --install-playwright
+      - name: Validate recovery with the installed Chromium driver
+        env:
+          RUNE_RECOVERY_WORKER_DLL: services/rune/apps/rune-worker/bin/Release/net10.0/Rune.Worker.dll
+        run: python3 scripts/verify_recovery_runtime.py --output-pdf "${RUNNER_TEMP}/rune-recovery-runtime.pdf"
+      - name: Start real NATS JetStream
+        run: |
+          docker compose up -d --build --wait nats
+          docker compose exec -T nats sh -ec 'test "$(id -u)" = 10001 && test -w /data/jetstream'
+      - name: Test the complete solution
+        run: python3 scripts/test_dotnet.py
+      - name: Run internal validation executable
+        run: dotnet run --project services/rune/tools/Rune.Validation/Rune.Validation.csproj -c Release --no-build --no-restore
+      - name: Clean up NATS
+        if: always()
+        run: docker compose down -v --remove-orphans
+
+  integration:
+    name: Docker integration (${{ matrix.scenario }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [compose, multi-node]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      - name: Install integration dependencies
+        run: python -m pip install -r services/rune/apps/rune-studio/requirements.txt PyYAML==6.0.2 jsonschema==4.25.1
+      - name: Build and verify Compose pipeline
+        if: matrix.scenario == 'compose'
+        run: |
+          docker compose build
+          python scripts/verify_compose_pipeline.py --output build/compose-evidence --skip-build
+          docker compose up -d --wait
+          python scripts/smoke.py
+          docker compose exec -T rune-worker python3 /validation/scripts/verify_studio_pipeline.py --api-url http://rune-api:8080 --output-pdf /tmp/rune/rune-studio-pipeline.pdf
+          PYTHONPATH=services/rune/apps/rune-studio/src python scripts/verify_streamlit_apptest.py --api-url http://127.0.0.1:8080 --output build/studio-evidence
+      - name: Verify multi-node resilience
+        if: matrix.scenario == 'multi-node'
+        run: python scripts/verify_multi_node_resilience.py --output build/resilience/multi-node
+      - name: Print diagnostics on failure
+        if: failure()
+        run: |
+          if [ "${{ matrix.scenario }}" = "compose" ]; then
+            docker compose ps -a
+            docker compose logs --no-color --tail=150
+          else
+            docker compose -f docker-compose.resilience.yml ps -a
+            docker compose -f docker-compose.resilience.yml logs --no-color --tail=150
+          fi
+          for log in build/compose-evidence/compose.log build/resilience/multi-node/compose.log; do
+            if [ -f "$log" ]; then tail -n 150 "$log"; fi
+          done
+      - name: Clean up containers and volumes
+        if: always()
+        run: |
+          if [ "${{ matrix.scenario }}" = "compose" ]; then
+            docker compose down -v --remove-orphans
+          else
+            docker compose -f docker-compose.resilience.yml down -v --remove-orphans
+          fi

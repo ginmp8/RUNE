@@ -1,0 +1,431 @@
+[
+  {
+    "id": "estrutura-basica",
+    "kind": "render",
+    "markdown": "# Título\n\nParágrafo.  \nNova linha.\n\n---\n\nSubtítulo\n--------",
+    "contains": [
+      "<h1",
+      "<p>",
+      "<br",
+      "<hr",
+      "<h2"
+    ]
+  },
+  {
+    "id": "formatacao-textual",
+    "kind": "render",
+    "markdown": "**forte** *ênfase* ~~removido~~ ==marca== H~2~O x^2^ ++ctrl+c++",
+    "contains": [
+      "<strong>",
+      "<em>",
+      "<del>",
+      "<mark>",
+      "<sub>",
+      "<sup>",
+      "<kbd>"
+    ]
+  },
+  {
+    "id": "caracteres-emojis",
+    "kind": "render",
+    "markdown": "\\\\*literal\\\\* :rocket: (c) -->",
+    "contains": [
+      "literal"
+    ],
+    "contains_any": [
+      "🚀",
+      "rocket"
+    ]
+  },
+  {
+    "id": "links-ancoras",
+    "kind": "render",
+    "markdown": "[Site](https://example.com \"Exemplo\")\n\n<user@example.com>\n\n## Seção {#secao}",
+    "contains": [
+      "href=\"https://example.com\"",
+      "mailto:user@example.com",
+      "id=\"secao\""
+    ]
+  },
+  {
+    "id": "imagens-midia",
+    "kind": "render",
+    "markdown": "![Descrição](imagem.png \"Título\")\n\n<audio controls src=\"som.mp3\"></audio>\n<video controls src=\"video.mp4\"></video>",
+    "contains": [
+      "<img",
+      "alt=\"Descrição\"",
+      "<audio",
+      "<video"
+    ]
+  },
+  {
+    "id": "listas",
+    "kind": "render",
+    "markdown": "- item\n  - subitem\n\n1. primeiro\n2. segundo\n\n- [x] concluído\n- [ ] pendente\n\nTermo\n: Definição",
+    "contains": [
+      "<ul",
+      "<ol",
+      "task-list",
+      "<dl>",
+      "<dt>",
+      "<dd>"
+    ]
+  },
+  {
+    "id": "citacoes",
+    "kind": "render",
+    "markdown": "> Citação\n>\n> > Aninhada\n\n<cite>Fonte</cite> <q>trecho</q>",
+    "contains": [
+      "<blockquote>",
+      "<cite>",
+      "<q>"
+    ]
+  },
+  {
+    "id": "codigo",
+    "kind": "render",
+    "markdown": "Inline `x = 1`.\n\n```python title=\"app.py\" linenums=\"1\" hl_lines=\"2\"\nprint(\"a\")\nprint(\"b\")\n```",
+    "contains": [
+      "<code>",
+      "highlight",
+      "python"
+    ]
+  },
+  {
+    "id": "tabelas",
+    "kind": "render",
+    "markdown": "| Nome | Valor |\n|:--|--:|\n| API | 100 |\n\n<table><tr><th scope=\"col\">A</th><td rowspan=\"2\">B</td></tr></table>",
+    "contains": [
+      "<table>",
+      "<th",
+      "<td",
+      "rowspan=\"2\""
+    ]
+  },
+  {
+    "id": "notas-abreviacoes",
+    "kind": "render",
+    "markdown": "Texto com nota.[^n]\n\n[^n]: Conteúdo.\n\n*[API]: Application Programming Interface\n\nAPI",
+    "contains": [
+      "footnote",
+      "<abbr",
+      "Application Programming Interface"
+    ]
+  },
+  {
+    "id": "front-matter",
+    "kind": "metadata",
+    "markdown": "---\ntitle: Documento\nauthor: Autor\ntoc: true\n---\n# Corpo",
+    "metadata": {
+      "title": "Documento",
+      "author": "Autor",
+      "toc": "true"
+    }
+  },
+  {
+    "id": "sumario-numeracao",
+    "kind": "render",
+    "markdown": "# Um\n\n## Dois",
+    "options": {
+      "include_toc": true
+    },
+    "contains": [
+      "class=\"toc\"",
+      "href=\"#um\"",
+      "id=\"um\""
+    ]
+  },
+  {
+    "id": "alertas-callouts",
+    "kind": "render",
+    "markdown": "> [!WARNING] Atenção\n> Conteúdo\n\n!!! note \"Nota\"\n    Texto",
+    "contains": [
+      "admonition",
+      "warning",
+      "note"
+    ]
+  },
+  {
+    "id": "tabs-details",
+    "kind": "render",
+    "markdown": "=== \"A\"\n\n    Conteúdo A\n\n=== \"B\"\n\n    Conteúdo B\n\n<details><summary>Mais</summary>Texto</details>",
+    "contains": [
+      "tabbed-set",
+      "<details>",
+      "<summary>"
+    ]
+  },
+  {
+    "id": "atributos-html",
+    "kind": "render",
+    "markdown": "## Título {#custom .classe}\n\n<span class=\"x\" aria-label=\"rótulo\" style=\"color: red\">texto</span>",
+    "contains": [
+      "id=\"custom\"",
+      "class=\"classe\"",
+      "aria-label=\"rótulo\"",
+      "style=\"color:red\""
+    ]
+  },
+  {
+    "id": "includes-transclusoes",
+    "kind": "render",
+    "markdown": "--8<-- \"snippet.md\"",
+    "resources": {
+      "snippet.md": "## Incluído\n\nConteúdo local."
+    },
+    "contains": [
+      "Incluído",
+      "Conteúdo local"
+    ]
+  },
+  {
+    "id": "github",
+    "kind": "render",
+    "markdown": "---\ngithub-references: true\ngithub-repository: owner/repo\n---\n- [x] tarefa\n\n> [!NOTE]\n> nota\n\nVeja #123 e @octocat.",
+    "contains": [
+      "task-list",
+      "admonition",
+      "https://github.com/owner/repo/issues/123",
+      "https://github.com/octocat"
+    ]
+  },
+  {
+    "id": "obsidian",
+    "kind": "render",
+    "markdown": "[[Documento interno|Rótulo]]\n\n> [!TIP]+ Dica\n> Conteúdo",
+    "contains": [
+      "Rótulo",
+      "admonition",
+      "tip"
+    ]
+  },
+  {
+    "id": "mkdocs",
+    "kind": "render",
+    "markdown": "!!! warning \"Título\"\n    Conteúdo\n\n--8<-- \"snippet.md\"",
+    "resources": {
+      "snippet.md": "Texto incluído"
+    },
+    "contains": [
+      "admonition",
+      "warning",
+      "Texto incluído"
+    ]
+  },
+  {
+    "id": "pandoc",
+    "kind": "render",
+    "markdown": "::: {.box #ident}\nConteúdo\n:::\n\nNota inline.^[Conteúdo da nota]",
+    "contains": [
+      "id=\"ident\"",
+      "class=\"box\"",
+      "footnote"
+    ]
+  },
+  {
+    "id": "matematica-katex",
+    "kind": "render",
+    "markdown": "Inline: $E=mc^2$\n\n$$x^2+y^2=z^2$$",
+    "contains": [
+      "arithmatex"
+    ]
+  },
+  {
+    "id": "mermaid",
+    "kind": "render",
+    "markdown": "```mermaid\nflowchart LR\nA-->B\n```",
+    "contains": [
+      "class=\"mermaid\"",
+      "flowchart LR"
+    ]
+  },
+  {
+    "id": "schematex-orgchart",
+    "kind": "render",
+    "markdown": "```orgchart\nceo: \"Ana\" | \"CEO\"\n```\n\n```schematex\norgchart \"Equipe\"\nceo: \"Ana\" | \"CEO\"\n```",
+    "contains": [
+      "schematex-orgchart",
+      "class=\"schematex\""
+    ]
+  },
+  {
+    "id": "ownership-chart",
+    "kind": "source",
+    "paths": [
+      "markdown_pdf/markdown_engine.py",
+      "assets/ownership/ownership-renderer.js"
+    ],
+    "contains": [
+      "data-ownership-payload",
+      "renderAll",
+      "prepareForPrint"
+    ]
+  },
+  {
+    "id": "mapas",
+    "kind": "render",
+    "markdown": "```geojson\n{\"type\":\"FeatureCollection\",\"features\":[]}\n```\n\n```topojson\n{\"type\":\"Topology\",\"objects\":{},\"arcs\":[]}\n```",
+    "contains": [
+      "diagram-geojson",
+      "diagram-topojson"
+    ]
+  },
+  {
+    "id": "graficos",
+    "kind": "render",
+    "markdown": "```chart\n{\"type\":\"bar\",\"labels\":[\"A\"],\"values\":[1]}\n```",
+    "contains": [
+      "diagram-chart"
+    ]
+  },
+  {
+    "id": "stl",
+    "kind": "render",
+    "markdown": "```stl\nsolid x\nendsolid x\n```",
+    "contains": [
+      "diagram-stl"
+    ]
+  },
+  {
+    "id": "tabelas-dados",
+    "kind": "render",
+    "markdown": "```csv-table\nNome,Valor\nAPI,100\n```\n\n```json-table\n[{\"Nome\":\"Worker\",\"Valor\":50}]\n```",
+    "contains": [
+      "<table",
+      "API",
+      "Worker"
+    ]
+  },
+  {
+    "id": "diagramas-preservados",
+    "kind": "render",
+    "markdown": "```plantuml\nAlice -> Bob\n```\n\n```dot\ndigraph G { A -> B }\n```",
+    "contains": [
+      "diagram-source-only",
+      "diagram-plantuml",
+      "diagram-dot"
+    ]
+  },
+  {
+    "id": "quebras-condicional",
+    "kind": "render",
+    "markdown": "<!-- html-only -->HTML<!-- /html-only -->\n<!-- pdf-only -->PDF<!-- /pdf-only -->\n\n\\pagebreak",
+    "contains": [
+      "PDF",
+      "page-break"
+    ],
+    "not_contains": [
+      "HTML"
+    ]
+  },
+  {
+    "id": "capa-metadados",
+    "kind": "source",
+    "paths": [
+      "markdown_pdf/html_builder.py",
+      "markdown_pdf/frontmatter.py"
+    ],
+    "contains": [
+      "_build_cover",
+      "document-cover",
+      "include_cover",
+      "cover-image"
+    ]
+  },
+  {
+    "id": "cabecalho-rodape",
+    "kind": "source",
+    "paths": [
+      "markdown_pdf/converter.py"
+    ],
+    "contains": [
+      "_header_template",
+      "_footer_template",
+      "pageNumber",
+      "totalPages"
+    ]
+  },
+  {
+    "id": "layout-temas-css",
+    "kind": "files",
+    "paths": [
+      "assets/styles/base.css",
+      "assets/styles/professional.css",
+      "assets/styles/minimal.css",
+      "assets/styles/dark.css"
+    ],
+    "contains": [
+      "@media print"
+    ]
+  },
+  {
+    "id": "preview-timing",
+    "kind": "source",
+    "paths": [
+      "markdown_pdf/preview.py",
+      "markdown_pdf/html_builder.py",
+      "markdown_pdf/converter.py",
+      "app.py"
+    ],
+    "contains": [
+      "build_preview_html",
+      "__PDF_RENDER_DONE__",
+      "__MARKDOWN_PDF_WAIT_STABLE__",
+      "Atualizar preview"
+    ]
+  },
+  {
+    "id": "recursos-seguranca",
+    "kind": "render",
+    "markdown": "<script>alert(1)</script>\n<a href=\"javascript:alert(1)\" onclick=\"x()\">ruim</a>\n<img src=\"data:image/png;base64,AA==\" alt=\"ok\">",
+    "contains": [
+      "alt=\"ok\""
+    ],
+    "not_contains": [
+      "<script",
+      "javascript:",
+      "onclick"
+    ]
+  },
+  {
+    "id": "acessibilidade",
+    "kind": "source",
+    "paths": [
+      "markdown_pdf/converter.py",
+      "markdown_pdf/html_builder.py",
+      "markdown_pdf/markdown_engine.py"
+    ],
+    "contains": [
+      "tagged=True",
+      "outline=True",
+      "lang=\"{language}\"",
+      "_audit_html"
+    ]
+  },
+  {
+    "id": "download-fluxo",
+    "kind": "source",
+    "paths": [
+      "app.py",
+      "markdown_pdf/ui_download.py",
+      "markdown_pdf/ui_state.py"
+    ],
+    "contains": [
+      "Gerar e baixar PDF",
+      "build_auto_download_html",
+      "consume_auto_download",
+      "Baixar novamente"
+    ]
+  },
+  {
+    "id": "reactflow-universal",
+    "kind": "render",
+    "markdown": "```reactflow\n{\"schemaVersion\":\"1.0\",\"nodes\":[{\"id\":\"a\",\"data\":{\"label\":\"A\"}}],\"edges\":[]}\n```",
+    "contains": [
+      "reactflow-document",
+      "data-reactflow-payload",
+      "reactflow-canvas",
+      "React Flow JSON"
+    ]
+  }
+]
