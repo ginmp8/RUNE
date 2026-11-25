@@ -134,7 +134,7 @@ jobs:
           docker compose up -d --build --wait nats
           docker compose exec -T nats sh -ec 'test "$(id -u)" = 10001 && test -w /data/jetstream'
       - name: Test the complete solution
-        run: dotnet test RUNE.slnx -c Release --no-build --no-restore --logger "console;verbosity=normal"
+        run: python3 scripts/test_dotnet.py
       - name: Run internal validation executable
         run: dotnet run --project services/rune/tools/Rune.Validation/Rune.Validation.csproj -c Release --no-build --no-restore
       - name: Clean up NATS

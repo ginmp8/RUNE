@@ -78,3 +78,5 @@ python3 scripts/verify_multi_node_resilience.py \
 ```
 
 The live command recreates the resilience volumes. Do not point it at data that must be retained.
+
+The volume-keeper image runs as UID/GID 10001 and initializes ownership for new named volumes from the image. If an existing volume has legacy ownership, stop its writers and use an explicit maintenance invocation before starting the topology (for example, `docker compose run --rm --no-deps --user 0:0 storage true` and the equivalent for `cache`). This adjusts ownership without removing data; do not run it concurrently with active jobs.

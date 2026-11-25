@@ -321,8 +321,13 @@ def main() -> int:
             document_name="distributed-schematex.md",
         )
         interactive_html = interactive.html or ""
-        if "__RUNE_RENDER_DONE__" not in interactive_html or "__RUNE_SCHEMATEX_MODULE_BASE64__" not in interactive_html:
-            raise RuntimeError("Interactive HTML is missing readiness or SchemaTex runtime markers")
+        if "__RUNE_RENDER_DONE__" not in interactive_html:
+            raise RuntimeError("Interactive HTML is missing the readiness contract")
+        if interactive_html.count('data-schematex-version="1.0.1"') < 2 or interactive_html.count("<svg") < 2:
+            raise RuntimeError("Interactive HTML is missing official SchemaTex diagrams")
+        for kind in ("schematex", "orgchart"):
+            if f'data-kind="{kind}"' not in interactive_html:
+                raise RuntimeError(f"Interactive HTML is missing {kind}")
         interactive_bytes = interactive_html.encode("utf-8")
         (output / "distributed-schematex-interactive.html").write_bytes(interactive_bytes)
         manifest["artifacts"].append(

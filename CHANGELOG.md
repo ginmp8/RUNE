@@ -12,7 +12,12 @@
 - align Studio AppTest and live validation with the six-tab and multi-output editor contract;
 - preserve Compose build failure output in multi-node diagnostics;
 - provision the non-root NATS account and JetStream storage ownership explicitly;
-- run recovery and Studio browser validation through the installed Playwright driver, preserving real DOM/PDF and readiness assertions without Chrome virtual-time CLI hangs.
+- run recovery and Studio browser validation through the installed Playwright driver, preserving real DOM/PDF and readiness assertions without Chrome virtual-time CLI hangs;
+- support ImageMagick 6 companion tools as well as ImageMagick 7, and keep image raster inputs separate from outputs;
+- preserve the tagged-PDF fail-closed policy while testing explicit untagged two-pass composition;
+- validate official server-rendered SchemaTex SVGs in browser and Studio evidence instead of the removed client runtime;
+- make the default volume-keeper runtime non-root and document explicit ownership maintenance for existing volumes;
+- execute every discovered native PDF test in a separate verified testhost process due to the previously documented aggregate native crash.
 
 ## [0.18.0] - 2026-07-28
 

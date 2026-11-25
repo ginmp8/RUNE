@@ -248,7 +248,7 @@ def main() -> int:
         if not args.skip_build:
             compose("build", "storage", "cache", "nats", "rune-api", "rune-worker", "rune-studio")
         manifest["checks"]["nonRoot"] = {
-            service: ensure_non_root(service, 10001 if service in {"rune-api", "rune-worker", "rune-studio"} else None)
+            service: ensure_non_root(service, 10001)
             for service in ("storage", "cache", "nats", "rune-api", "rune-worker", "rune-studio")
         }
 

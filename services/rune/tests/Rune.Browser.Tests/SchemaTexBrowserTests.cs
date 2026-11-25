@@ -38,7 +38,11 @@ public sealed class SchemaTexBrowserTests
         var compiled = await new MarkdownDocumentCompiler().CompileAsync(new SourceDocument(DocumentSourceType.Markdown, Markdown));
         var rendered = await new HtmlDocumentRenderer(Path.Combine(root, "services", "rune", "assets")).RenderAsync(compiled, new RenderOptions());
         Assert.DoesNotContain(rendered.Diagnostics, item => item.Code == "renderer-asset-missing");
-        Assert.Contains("__RUNE_SCHEMATEX_MODULE_BASE64__", rendered.Html);
+        Assert.Contains(rendered.Diagnostics, item => item.Code == "schematex.official-package");
+        Assert.Contains("data-schematex-version=\"1.0.1\"", rendered.Html);
+        Assert.Contains("data-render-state=\"ready\"", rendered.Html);
+        Assert.Contains("<svg", rendered.Html, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("__RUNE_SCHEMATEX_MODULE_BASE64__", rendered.Html);
 
         var package = new RenderPackage(
             Guid.NewGuid(), rendered.Html, RenderOutputFormat.StaticHtml,

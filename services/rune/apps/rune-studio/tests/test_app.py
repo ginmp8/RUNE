@@ -75,7 +75,7 @@ def fake_rune_api() -> Iterator[str]:
                 self.send_json(
                     {
                         "contentType": "text/html; charset=utf-8",
-                        "html": "<html><body>SchemaTex AppTest</body><script>window.__RUNE_RENDER_DONE__=true;window.__RUNE_SCHEMATEX_MODULE_BASE64__='fixture';</script></html>",
+                        "html": "<html><body>SchemaTex AppTest<figure data-kind='schematex' data-schematex-version='1.0.1' data-render-state='ready'><svg></svg></figure><figure data-kind='orgchart' data-schematex-version='1.0.1' data-render-state='ready'><svg></svg></figure></body><script>window.__RUNE_RENDER_DONE__=true;</script></html>",
                         "diagnostics": [],
                     }
                 )
@@ -133,7 +133,10 @@ def test_streamlit_apptest_executes_editor_preview_and_export(monkeypatch: pytes
         at.run(timeout=20)
         assert not at.exception
         assert "__RUNE_RENDER_DONE__" in at.session_state["preview_html"]
-        assert "__RUNE_SCHEMATEX_MODULE_BASE64__" in at.session_state["preview_html"]
+        preview = at.session_state["preview_html"]
+        assert preview.count("data-schematex-version='1.0.1'") == 2
+        assert "data-kind='schematex'" in preview and "data-kind='orgchart'" in preview
+        assert preview.count("<svg>") == 2
 
         by_label(at.button, "Generate export").click()
         at.run(timeout=20)

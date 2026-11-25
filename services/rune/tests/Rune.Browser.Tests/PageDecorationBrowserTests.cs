@@ -96,10 +96,16 @@ public sealed class PageDecorationBrowserTests
                 new PageDecorationRule("financials", new PageDecorationSelector(NamedSections: ["Financials"]), new PageDecorationTemplate("Financial Section", "Financial {page}/{pages}"), 10)
             ],
             TwoPassPdfComposition: true);
-        var options = new RenderOptions(TimeoutSeconds: 45, PageDecorations: decorations);
+        var options = new RenderOptions(TimeoutSeconds: 45, Tagged: false, PageDecorations: decorations);
         var package = new RenderPackage(Guid.NewGuid(), html, RenderOutputFormat.Pdf, options,
             Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(html))), DateTimeOffset.UtcNow);
         await using var browser = new PlaywrightRenderService();
+        // Two-pass PDF overlays cannot preserve tagged structure. Exercise the
+        // fail-closed policy as well as the explicitly untagged success case.
+        var taggedPackage = package with { Options = options with { Tagged = true } };
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => browser.RenderAsync(taggedPackage).AsTask());
+        Assert.Contains("page-decoration-tagged-pdf-not-preserved", exception.Message);
         var result = await browser.RenderAsync(package);
         var bytes = result.Content.ToArray();
         Assert.Equal(2, Rune.Export.Pdf.TwoPassPdfComposer.GetPageCount(bytes));

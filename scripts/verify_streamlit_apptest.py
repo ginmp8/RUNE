@@ -77,8 +77,13 @@ def main() -> int:
     preview = at.session_state["preview_html"]
     if not isinstance(preview, str) or "__RUNE_RENDER_DONE__" not in preview:
         raise RuntimeError("Streamlit preview did not receive ready interactive HTML from RUNE API")
-    if "__RUNE_SCHEMATEX_MODULE_BASE64__" not in preview:
-        raise RuntimeError("Streamlit preview did not receive the embedded SchemaTex runtime")
+    for kind in ("schematex", "orgchart"):
+        if f'data-kind="{kind}"' not in preview:
+            raise RuntimeError(f"Streamlit preview is missing the {kind} diagram")
+    if preview.count('data-schematex-version="1.0.1"') < 2:
+        raise RuntimeError("Streamlit preview did not receive both official SchemaTex diagrams")
+    if preview.count("<svg") < 2:
+        raise RuntimeError("Streamlit preview is missing materialized SVG diagrams")
 
     by_label(at.button, "Generate export").click()
     at.run(timeout=args.timeout_seconds)
@@ -90,6 +95,8 @@ def main() -> int:
     content = export.get("content")
     if not isinstance(content, bytes) or b'data-rune-static="true"' not in content:
         raise RuntimeError("Streamlit AppTest export did not produce valid static HTML")
+    if content.count(b'data-schematex-version="1.0.1"') < 2 or content.count(b"<svg") < 2:
+        raise RuntimeError("Streamlit export did not preserve both official SchemaTex diagrams")
 
     (output / "streamlit-preview.html").write_text(preview, encoding="utf-8")
     (output / "streamlit-export.html").write_bytes(content)

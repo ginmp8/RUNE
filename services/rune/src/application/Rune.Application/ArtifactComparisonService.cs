@@ -100,7 +100,7 @@ public sealed partial class ArtifactComparisonService
         byte[] left, string leftContentType, byte[] right, string rightContentType,
         ArtifactComparisonOptions options, CancellationToken cancellationToken)
     {
-        var magick = FindExecutable("RUNE_IMAGEMAGICK_PATH", "magick", "/opt/imagemagick/bin/magick", "/usr/bin/magick");
+        var magick = FindImageMagick();
         if (magick is null) return new PixelComparisonResult(false, false, null, null, Diagnostic: "pixel-comparison-unavailable");
         var root = CreateTemporaryDirectory("pixel");
         try
@@ -131,7 +131,7 @@ public sealed partial class ArtifactComparisonService
                         "pixel-dimensions-differ", ComparedPages: leftPages.Count, DifferingPages: differingPages);
                 }
                 var diffPath = Path.Combine(root, $"diff-{index + 1:D4}.png");
-                var result = await RunProcessAsync(magick,
+                var result = await RunImageMagickAsync(magick,
                     ["compare", "-metric", "AE", "-fuzz", options.PixelTolerancePercent.ToString("0.####", CultureInfo.InvariantCulture) + "%", leftPages[index], rightPages[index], diffPath],
                     options.TimeoutSeconds, cancellationToken, allowExitCodeOne: true);
                 if (result.ExitCode is not (0 or 1))
@@ -164,7 +164,7 @@ public sealed partial class ArtifactComparisonService
                 if (diffPaths.Count > 1)
                 {
                     var append = diffPaths.Concat(["-append", diffPath]).ToArray();
-                    var appendResult = await RunProcessAsync(magick, append, options.TimeoutSeconds, cancellationToken);
+                    var appendResult = await RunImageMagickAsync(magick, append, options.TimeoutSeconds, cancellationToken);
                     if (appendResult.ExitCode != 0) diffPath = diffPaths[0];
                 }
                 if (File.Exists(diffPath))
@@ -196,17 +196,17 @@ public sealed partial class ArtifactComparisonService
         var maskPath = Path.Combine(directory, token + "-mask.png");
         var overlayPath = Path.Combine(directory, token + "-overlay.png");
 
-        var mask = await RunProcessAsync(magick,
+        var mask = await RunImageMagickAsync(magick,
             [leftPage, rightPage, "-compose", "difference", "-composite", "-colorspace", "gray", "-threshold", "0", maskPath],
             timeoutSeconds, cancellationToken);
         if (mask.ExitCode != 0 || !File.Exists(maskPath)) return null;
 
-        var overlay = await RunProcessAsync(magick,
+        var overlay = await RunImageMagickAsync(magick,
             [maskPath, "-fill", "red", "-opaque", "white", "-transparent", "black", overlayPath],
             timeoutSeconds, cancellationToken);
         if (overlay.ExitCode != 0 || !File.Exists(overlayPath)) return null;
 
-        var composite = await RunProcessAsync(magick,
+        var composite = await RunImageMagickAsync(magick,
             [rightPage, overlayPath, "-compose", "over", "-composite", outputPath],
             timeoutSeconds, cancellationToken);
         return composite.ExitCode == 0 && File.Exists(outputPath) ? outputPath : null;
@@ -266,10 +266,10 @@ public sealed partial class ArtifactComparisonService
                 .OrderBy(path => PageNumber(path)).Take(500).ToArray();
         }
         if (contentType is not ("image/png" or "image/jpeg" or "image/svg+xml")) return [];
-        var magick = FindExecutable("RUNE_IMAGEMAGICK_PATH", "magick", "/opt/imagemagick/bin/magick", "/usr/bin/magick");
+        var magick = FindImageMagick();
         if (magick is null) return [];
-        var output = Path.Combine(root, name + ".png");
-        var conversion = await RunProcessAsync(magick, [input, "-background", "white", "-alpha", "remove", "-alpha", "off", output], options.TimeoutSeconds, cancellationToken);
+        var output = Path.Combine(root, name + "-raster.png");
+        var conversion = await RunImageMagickAsync(magick, [input, "-background", "white", "-alpha", "remove", "-alpha", "off", output], options.TimeoutSeconds, cancellationToken);
         return conversion.ExitCode == 0 && File.Exists(output) ? [output] : [];
     }
 
@@ -281,7 +281,7 @@ public sealed partial class ArtifactComparisonService
 
     private static async ValueTask<(int Width, int Height)?> IdentifyAsync(string magick, string path, int timeoutSeconds, CancellationToken cancellationToken)
     {
-        var result = await RunProcessAsync(magick, ["identify", "-format", "%w %h", path], timeoutSeconds, cancellationToken);
+        var result = await RunImageMagickAsync(magick, ["identify", "-format", "%w %h", path], timeoutSeconds, cancellationToken);
         var values = result.StandardOutput.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return result.ExitCode == 0 && values.Length == 2 && int.TryParse(values[0], out var width) && int.TryParse(values[1], out var height)
             ? (width, height) : null;
@@ -312,6 +312,29 @@ public sealed partial class ArtifactComparisonService
         var result = new ProcessResult(process.ExitCode, await stdout, await stderr);
         if (result.ExitCode != 0 && !(allowExitCodeOne && result.ExitCode == 1)) return result;
         return result;
+    }
+
+    private static string? FindImageMagick()
+    {
+        // ImageMagick 7 uses a unified magick command. Debian and Ubuntu also
+        // ship ImageMagick 6, with separate convert, identify and compare tools.
+        return FindExecutable("RUNE_IMAGEMAGICK_PATH", "magick", "/opt/imagemagick/bin/magick", "/usr/bin/magick")
+            ?? FindExecutable("RUNE_IMAGEMAGICK_PATH", "convert", "/usr/bin/convert");
+    }
+
+    private static ValueTask<ProcessResult> RunImageMagickAsync(
+        string executable, IReadOnlyList<string> arguments, int timeoutSeconds,
+        CancellationToken cancellationToken, bool allowExitCodeOne = false)
+    {
+        if (Path.GetFileName(executable).StartsWith("convert", StringComparison.OrdinalIgnoreCase) &&
+            arguments.Count > 0 && arguments[0] is "identify" or "compare")
+        {
+            var command = Path.Combine(Path.GetDirectoryName(executable) ?? string.Empty, arguments[0]);
+            if (!File.Exists(command))
+                throw new InvalidOperationException($"ImageMagick 6 companion command {arguments[0]} is unavailable.");
+            return RunProcessAsync(command, arguments.Skip(1).ToArray(), timeoutSeconds, cancellationToken, allowExitCodeOne);
+        }
+        return RunProcessAsync(executable, arguments, timeoutSeconds, cancellationToken, allowExitCodeOne);
     }
 
     private static string? FindExecutable(string environmentName, string command, params string[] commonPaths)
