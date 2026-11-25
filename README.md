@@ -46,6 +46,10 @@ Stop the environment with:
 
 ## Validation
 
+GitHub Actions runs the [CI workflow](.github/workflows/ci.yml) on pull requests and pushes to `main`. It checks the workspace and schemas, pinned renderer integrity, Python SDK and Studio, TypeScript SDK contracts and strict typechecking, the Release solution build, native PDF and real Chromium/JetStream tests, and Docker Compose and multi-node integration. The Studio integration uses the pinned Streamlit runtime against the live API. Failures are not suppressed. Jobs use read-only repository permissions and disposable runners; no deployment or publishing is performed.
+
+The TypeScript transport behavior test uses Node.js 22.16.0 with `--experimental-transform-types` because the SDK contains TypeScript parameter properties. The SDK has no committed npm lockfile; CI installs the exact compiler version declared in its package manifest. Full advisory qualification, long-running load/soak, independent exhaustive PDF/A qualification, signing, and production promotion remain distinct release gates.
+
 ```bash
 ./scripts/test.sh
 ```
