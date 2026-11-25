@@ -433,8 +433,19 @@ app.MapPost("/v1/render", async (RenderRequest request, DocumentRenderApplicatio
     return Results.Accepted(accepted.StatusUrl, accepted);
 });
 
-app.MapGet("/v1/renders", async (RenderJobStatus? status, int? offset, int? limit, DateTimeOffset? createdAfter, DateTimeOffset? createdBefore, IRenderJobStore jobs, CancellationToken cancellationToken) =>
-    Results.Ok(await jobs.QueryAsync(new RenderJobQuery(status, offset ?? 0, limit ?? 50, createdAfter, createdBefore), cancellationToken)));
+app.MapGet("/v1/renders", async (string? status, int? offset, int? limit, DateTimeOffset? createdAfter, DateTimeOffset? createdBefore, IRenderJobStore jobs, CancellationToken cancellationToken) =>
+{
+    // Query binding is independent of JSON's camel-case enum converter.
+    // Accept the public status names used by the Studio and SDK clients.
+    RenderJobStatus? filter = null;
+    if (!string.IsNullOrWhiteSpace(status))
+    {
+        if (status.Contains(',') || !Enum.TryParse<RenderJobStatus>(status, ignoreCase: true, out var parsed) || !Enum.IsDefined(parsed))
+            return Results.BadRequest(new ApiErrorResponse("invalid-render-status", "Status must identify a defined render job state."));
+        filter = parsed;
+    }
+    return Results.Ok(await jobs.QueryAsync(new RenderJobQuery(filter, offset ?? 0, limit ?? 50, createdAfter, createdBefore), cancellationToken));
+});
 
 app.MapGet("/v1/renders/{id:guid}", async (Guid id, IRenderJobStore jobs, CancellationToken cancellationToken) =>
 {

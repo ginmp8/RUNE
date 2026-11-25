@@ -33,7 +33,7 @@ Browser-backed outputs and PDF-to-HTML conversion return `202` with a render ide
 
 ## Jobs
 
-- `GET /v1/renders`: paginated filtering by status and creation dates.
+- `GET /v1/renders`: paginated filtering by status and creation dates (for example, `?status=completed&offset=0&limit=5`). Status names are case-insensitive; omitted or empty status means no status filter, and an invalid state returns HTTP 400 with `invalid-render-status`.
 - `GET /v1/renders/{id}`: status, progress, attempts, lease, and result availability.
 - `GET /v1/renders/{id}/content`: range-enabled result download.
 - `GET /v1/renders/{id}/conversion-report`: PDF conversion evidence and per-page strategy.

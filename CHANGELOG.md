@@ -16,6 +16,7 @@
 - support ImageMagick 6 companion tools as well as ImageMagick 7, and keep image raster inputs separate from outputs;
 - install and use the standalone librsvg renderer for SVG comparisons on distributions without the optional ImageMagick SVG coder;
 - inspect fonts in the actual PDF returned by the API instead of assuming a private storage layout;
+- accept case-insensitive render-job status filters and validate pagination and invalid-status responses in the live smoke test;
 - preserve the tagged-PDF fail-closed policy while testing explicit untagged two-pass composition;
 - validate official server-rendered SchemaTex SVGs in browser and Studio evidence instead of the removed client runtime;
 - make the default volume-keeper runtime non-root and document explicit ownership maintenance for existing volumes;

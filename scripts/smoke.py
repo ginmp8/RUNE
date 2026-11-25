@@ -130,7 +130,22 @@ def main() -> None:
         check_content(render_id, output)
 
     listing = call("/v1/renders?status=completed&offset=0&limit=5")
-    assert listing.status == 200 and listing.json()["total"] >= 6
+    assert listing.status == 200, (listing.status, listing.body)
+    page = listing.json()
+    assert page["total"] >= 6 and len(page["items"]) == 5, page
+    assert all(item["status"] == "completed" for item in page["items"]), page
+    second = call("/v1/renders?status=completed&offset=5&limit=5")
+    assert second.status == 200, (second.status, second.body)
+    next_page = second.json()
+    assert next_page["total"] == page["total"] and next_page["items"], next_page
+    assert all(item["status"] == "completed" for item in next_page["items"]), next_page
+    assert not ({item["id"] for item in page["items"]} & {item["id"] for item in next_page["items"]})
+    legacy = call("/v1/renders?status=Completed&offset=0&limit=5")
+    assert legacy.status == 200 and legacy.json()["total"] == page["total"], (legacy.status, legacy.body)
+    unfiltered = call("/v1/renders?status=&offset=0&limit=5")
+    assert unfiltered.status == 200 and unfiltered.json()["total"] >= page["total"], (unfiltered.status, unfiltered.body)
+    invalid = call("/v1/renders?status=not-a-render-status")
+    assert invalid.status == 400 and invalid.json()["code"] == "invalid-render-status", (invalid.status, invalid.body)
 
     # Fail-closed readiness: an unowned pending renderer must fail instead of producing a partial artifact.
     failing = create_job(
