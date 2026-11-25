@@ -14,6 +14,8 @@
 - provision the non-root NATS account and JetStream storage ownership explicitly;
 - run recovery and Studio browser validation through the installed Playwright driver, preserving real DOM/PDF and readiness assertions without Chrome virtual-time CLI hangs;
 - support ImageMagick 6 companion tools as well as ImageMagick 7, and keep image raster inputs separate from outputs;
+- install and use the standalone librsvg renderer for SVG comparisons on distributions without the optional ImageMagick SVG coder;
+- inspect fonts in the actual PDF returned by the API instead of assuming a private storage layout;
 - preserve the tagged-PDF fail-closed policy while testing explicit untagged two-pass composition;
 - validate official server-rendered SchemaTex SVGs in browser and Studio evidence instead of the removed client runtime;
 - make the default volume-keeper runtime non-root and document explicit ownership maintenance for existing volumes;

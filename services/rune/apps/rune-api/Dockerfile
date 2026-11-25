@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0.10 AS runtime
 WORKDIR /app
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-      curl fontconfig fonts-dejavu-core fonts-liberation imagemagick netcat-openbsd \
+      curl fontconfig fonts-dejavu-core fonts-liberation imagemagick librsvg2-bin netcat-openbsd \
       poppler-utils python3 python3-brotli python3-fonttools tesseract-ocr nodejs \
  && rm -rf /var/lib/apt/lists/* \
  && groupadd --gid 10001 rune \

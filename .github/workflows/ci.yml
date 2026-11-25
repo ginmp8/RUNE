@@ -118,7 +118,7 @@ jobs:
       - name: Install native PDF, OCR and font dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ghostscript icc-profiles-free tesseract-ocr fontconfig fonts-dejavu-core fonts-liberation python3-fonttools python3-brotli imagemagick poppler-utils
+          sudo apt-get install -y --no-install-recommends ghostscript icc-profiles-free tesseract-ocr fontconfig fonts-dejavu-core fonts-liberation python3-fonttools python3-brotli imagemagick librsvg2-bin poppler-utils
       - name: Restore
         run: dotnet restore RUNE.slnx -p:NuGetAudit=true -p:NuGetAuditMode=all
       - name: Release build

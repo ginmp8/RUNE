@@ -198,9 +198,10 @@ def pdf_text(pdf: bytes) -> str:
     return result.stdout.decode("utf-8", errors="replace")
 
 
-def pdffonts_for_job(render_id: str) -> str:
-    compact = render_id.replace("-", "")
-    result = compose("exec", "-T", "rune-api", "pdffonts", f"/data/jobs/{compact}/result.pdf")
+def pdf_fonts(pdf: bytes) -> str:
+    # Inspect the actual artifact returned by the public API, not a private
+    # storage path that can change with the persistence implementation.
+    result = compose("exec", "-T", "rune-api", "pdffonts", "-", input_bytes=pdf)
     return result.stdout.decode("utf-8", errors="replace")
 
 
@@ -367,7 +368,7 @@ def main() -> int:
                 text = pdf_text(content)
                 if "RUNE DEPLOYED HEADER" not in text or "RUNE DEPLOYED FOOTER" not in text:
                     raise RuntimeError("Generated PDF does not contain the configured header and footer")
-                fonts = pdffonts_for_job(accepted.render_id)
+                fonts = pdf_fonts(content)
                 if "DejaVu" not in fonts:
                     raise RuntimeError(f"Expected DejaVu system font in generated PDF:\n{fonts}")
                 (output / "deployed-schematex-pdffonts.txt").write_text(fonts, encoding="utf-8")

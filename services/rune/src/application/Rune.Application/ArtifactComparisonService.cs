@@ -268,9 +268,27 @@ public sealed partial class ArtifactComparisonService
         if (contentType is not ("image/png" or "image/jpeg" or "image/svg+xml")) return [];
         var magick = FindImageMagick();
         if (magick is null) return [];
+        var rasterInput = input;
+        if (contentType == "image/svg+xml")
+        {
+            // The distro ImageMagick package may omit its optional SVG coder.
+            // Prefer the explicitly installed, standalone SVG renderer.
+            var rsvg = FindExecutable("RUNE_RSVG_CONVERT_PATH", "rsvg-convert", "/usr/bin/rsvg-convert");
+            if (rsvg is not null)
+            {
+                rasterInput = Path.Combine(root, name + "-svg.png");
+                var svgResult = await RunProcessAsync(rsvg,
+                    ["--format=png", "--output", rasterInput, input],
+                    options.TimeoutSeconds, cancellationToken);
+                if (svgResult.ExitCode != 0 || !File.Exists(rasterInput))
+                    throw new InvalidOperationException($"SVG rasterization failed (exit {svgResult.ExitCode}).");
+            }
+        }
         var output = Path.Combine(root, name + "-raster.png");
-        var conversion = await RunImageMagickAsync(magick, [input, "-background", "white", "-alpha", "remove", "-alpha", "off", output], options.TimeoutSeconds, cancellationToken);
-        return conversion.ExitCode == 0 && File.Exists(output) ? [output] : [];
+        var conversion = await RunImageMagickAsync(magick, [rasterInput, "-background", "white", "-alpha", "remove", "-alpha", "off", output], options.TimeoutSeconds, cancellationToken);
+        if (conversion.ExitCode != 0 || !File.Exists(output))
+            throw new InvalidOperationException($"Image rasterization failed (exit {conversion.ExitCode}).");
+        return [output];
     }
 
     private static int PageNumber(string path)
