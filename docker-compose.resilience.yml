@@ -46,6 +46,7 @@ x-worker: &worker
   build:
     context: .
     dockerfile: services/rune/apps/rune-worker/Dockerfile
+    target: runtime
   environment:
     NATS_URL: nats://nats:4222
     RUNE_DATA_ROOT: /data

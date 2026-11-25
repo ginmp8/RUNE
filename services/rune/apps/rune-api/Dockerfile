@@ -29,5 +29,5 @@ ENV ASPNETCORE_URLS=http://+:8080 \
 STOPSIGNAL SIGTERM
 USER 10001:10001
 EXPOSE 8080
-HEALTHCHECK --interval=10s --timeout=4s --retries=12 CMD-SHELL curl --fail --silent http://localhost:8080/health >/dev/null && test -w /data && test -w /cache && test -w /tmp/rune
+HEALTHCHECK --interval=10s --timeout=4s --retries=12 CMD curl --fail --silent http://localhost:8080/health >/dev/null && test -w /data && test -w /cache && test -w /tmp/rune
 ENTRYPOINT ["dotnet", "Rune.Api.dll"]

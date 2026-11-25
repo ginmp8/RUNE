@@ -262,7 +262,17 @@ for path, images in expected_images.items():
     for image in images:
         if image not in text:
             errors.append(f"{path} missing pinned image {image}")
+    if re.search(r"^HEALTHCHECK[^\n]*\bCMD-SHELL\b", text, re.MULTILINE):
+        errors.append(f"{path} uses Compose-only CMD-SHELL syntax in Dockerfile HEALTHCHECK")
 worker_dockerfile = read("services/rune/apps/rune-worker/Dockerfile")
+if "COPY VERSION /validation/VERSION" not in worker_dockerfile:
+    errors.append("worker Dockerfile must copy the version consumed by its recovery validators")
+for compose_path in ("docker-compose.yml", "docker-compose.resilience.yml"):
+    definition = yaml.safe_load(read(compose_path))
+    for name, service in definition.get("services", {}).items():
+        build = service.get("build", {})
+        if isinstance(build, dict) and build.get("dockerfile") == "services/rune/apps/rune-worker/Dockerfile" and build.get("target") != "runtime":
+            errors.append(f"{compose_path}: {name} must select the worker runtime stage")
 for marker in ("AS browser-test", "ghostscript", "icc-profiles-free", "--install-playwright", "verify_recovery_runtime.py"):
     if marker not in worker_dockerfile:
         errors.append(f"worker Dockerfile missing browser/PDF-A contract: {marker}")

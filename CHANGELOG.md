@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Security
+
+- update HtmlSanitizer to 9.2.1039 and centrally pin AngleSharp 1.8.2 and System.Security.Cryptography.Pkcs 8.0.2 to address known NuGet advisory failures without suppressing audit diagnostics;
+
+### Fixed
+
+- use Dockerfile-compatible health checks, select the worker runtime build stage, and provide the version required by recovery validation;
+- align Studio AppTest and live validation with the six-tab and multi-output editor contract;
+- preserve Compose build failure output in multi-node diagnostics.
+
 ## [0.18.0] - 2026-07-28
 
 ### Added

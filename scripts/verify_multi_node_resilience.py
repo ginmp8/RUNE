@@ -40,15 +40,20 @@ def parse_args() -> argparse.Namespace:
 
 
 def compose(path: Path, *args: str, env: dict[str, str] | None = None, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
+    result = subprocess.run(
         ["docker", "compose", "-f", str(path), *args],
         cwd=ROOT,
         env=env,
-        check=check,
+        check=False,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
+    if check and result.returncode:
+        raise RuntimeError(
+            f"Compose command failed ({result.returncode}): {' '.join(args)}\n{result.stdout}"
+        )
+    return result
 
 
 def request_json(method: str, url: str, payload: dict[str, Any] | None = None, timeout: int = 60) -> Any:

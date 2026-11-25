@@ -122,12 +122,13 @@ def test_streamlit_apptest_executes_editor_preview_and_export(monkeypatch: pytes
         at = AppTest.from_file(str(APP), default_timeout=20).run()
         assert not at.exception
         assert at.title[0].value == "RUNE Studio"
-        assert {tab.label for tab in at.tabs} == {"Editor", "PDF to HTML", "Jobs", "Documentation"}
-        assert {"Export format", "Conversion mode", "OCR mode"}.issubset({item.label for item in at.selectbox})
+        assert {tab.label for tab in at.tabs} == {"Editor", "Templates", "PDF to HTML", "Compare", "Jobs", "Documentation"}
+        assert {"Conversion mode", "OCR mode"}.issubset({item.label for item in at.selectbox})
+        assert {"Export formats", "Outputs"}.issubset({item.label for item in at.multiselect})
         assert {"Preserve safe links", "Extract images"}.issubset({item.label for item in at.checkbox})
 
         by_label(at.text_area, "Document source").input(SCHEMATEX_SOURCE)
-        by_label(at.selectbox, "Export format").select("Structured JSON")
+        by_label(at.multiselect, "Export formats").set_value(["Structured JSON"])
         by_label(at.button, "Update preview").click()
         at.run(timeout=20)
         assert not at.exception

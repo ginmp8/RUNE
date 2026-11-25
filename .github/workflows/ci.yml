@@ -120,7 +120,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ghostscript icc-profiles-free tesseract-ocr fontconfig fonts-dejavu-core fonts-liberation python3-fonttools python3-brotli imagemagick poppler-utils
       - name: Restore
-        run: dotnet restore RUNE.slnx
+        run: dotnet restore RUNE.slnx -p:NuGetAudit=true -p:NuGetAuditMode=all
       - name: Release build
         run: dotnet build RUNE.slnx -c Release --no-restore
       - name: Install pinned Playwright Chromium

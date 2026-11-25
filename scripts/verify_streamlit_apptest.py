@@ -69,7 +69,7 @@ def main() -> int:
         raise RuntimeError(f"Unexpected Studio title: {at.title[0].value!r}")
 
     by_label(at.text_area, "Document source").input(SCHEMATEX_SOURCE)
-    by_label(at.selectbox, "Export format").select("Static HTML")
+    by_label(at.multiselect, "Export formats").set_value(["Static HTML"])
     by_label(at.button, "Update preview").click()
     at.run(timeout=args.timeout_seconds)
     if at.exception:

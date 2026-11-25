@@ -10,6 +10,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 COPY --from=build /app/publish .
 COPY services/rune/THIRD_PARTY_NOTICES.md /app/THIRD_PARTY_NOTICES.md
 COPY services/rune/licenses /app/licenses
+COPY VERSION /validation/VERSION
 COPY scripts/recovery_common.py scripts/verify_recovery_runtime.py scripts/verify_studio_pipeline.py /validation/scripts/
 COPY services/rune/assets/reactflow /validation/services/rune/assets/reactflow
 COPY services/rune/examples/reactflow /validation/services/rune/examples/reactflow
@@ -31,7 +32,7 @@ ENV RUNE_DATA_ROOT=/data \
     TMPDIR=/tmp/rune
 STOPSIGNAL SIGTERM
 USER 10001:10001
-HEALTHCHECK --interval=10s --timeout=5s --retries=12 CMD-SHELL pgrep -f 'dotnet Rune.Worker.dll' >/dev/null && test -w /data && test -w /cache && test -w /tmp/rune && command -v gs >/dev/null && command -v tesseract >/dev/null && fc-match sans >/dev/null && test -r /usr/share/color/icc/ghostscript/srgb.icc && test -n "$(find /ms-playwright -type f -name chrome -perm -111 -print -quit)"
+HEALTHCHECK --interval=10s --timeout=5s --retries=12 CMD pgrep -f 'dotnet Rune.Worker.dll' >/dev/null && test -w /data && test -w /cache && test -w /tmp/rune && command -v gs >/dev/null && command -v tesseract >/dev/null && fc-match sans >/dev/null && test -r /usr/share/color/icc/ghostscript/srgb.icc && test -n "$(find /ms-playwright -type f -name chrome -perm -111 -print -quit)"
 ENTRYPOINT ["dotnet", "Rune.Worker.dll"]
 
 FROM build AS browser-test
