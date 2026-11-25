@@ -6,6 +6,7 @@ import signal
 import shutil
 import subprocess
 import tempfile
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
@@ -105,12 +106,62 @@ def run_chromium(html: str, *, executable: str | None, timeout_seconds: int, out
         return dump.stdout, pdf
 
 
+class _ReactFlowDomInspector(HTMLParser):
+    """Count materialized elements, not markup in embedded scripts or other diagrams."""
+
+    _VOID_TAGS = frozenset({
+        "area", "base", "br", "col", "embed", "hr", "img", "input",
+        "link", "meta", "param", "source", "track", "wbr",
+    })
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.counts: dict[str, Any] = {
+            "documents": 0, "ready": 0, "svgs": 0,
+            "nodes": 0, "edges": 0, "markers": [],
+        }
+        self._stack: list[tuple[str, bool, bool, bool]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        classes = (values.get("class") or "").split()
+        _, in_document, in_canvas, in_svg = (
+            self._stack[-1] if self._stack else ("", False, False, False)
+        )
+        if "reactflow-document" in classes:
+            self.counts["documents"] += 1
+            if values.get("data-render-state") == "ready":
+                self.counts["ready"] += 1
+            in_document, in_canvas, in_svg = True, False, False
+        in_canvas = in_document and (in_canvas or "reactflow-canvas" in classes)
+        if in_canvas and tag == "svg":
+            self.counts["svgs"] += 1
+            in_svg = True
+        if in_svg:
+            if "data-node-id" in values:
+                self.counts["nodes"] += 1
+            if "data-edge-id" in values:
+                self.counts["edges"] += 1
+            marker = values.get("id") or ""
+            if tag == "marker" and re.fullmatch(r"rf-arrow-\d+", marker):
+                self.counts["markers"].append(marker)
+        if tag not in self._VOID_TAGS:
+            self._stack.append((tag, in_document, in_canvas, in_svg))
+
+    def handle_endtag(self, tag: str) -> None:
+        for index in range(len(self._stack) - 1, -1, -1):
+            if self._stack[index][0] == tag:
+                del self._stack[index:]
+                break
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in self._VOID_TAGS:
+            self.handle_endtag(tag)
+
+
 def inspect_dom(dom: str) -> dict[str, Any]:
-    return {
-        "documents": len(re.findall(r'class="[^"]*reactflow-document', dom)),
-        "ready": len(re.findall(r'class="[^"]*reactflow-document[^>]+data-render-state="ready"|data-render-state="ready"[^>]+class="[^"]*reactflow-document', dom)),
-        "svgs": len(re.findall(r'<svg\b', dom)),
-        "nodes": len(re.findall(r'data-node-id=', dom)),
-        "edges": len(re.findall(r'data-edge-id=', dom)),
-        "markers": re.findall(r'<marker[^>]+id="(rf-arrow-\d+)"', dom),
-    }
+    inspector = _ReactFlowDomInspector()
+    inspector.feed(dom)
+    inspector.close()
+    return inspector.counts
