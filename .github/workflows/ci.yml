@@ -125,8 +125,14 @@ jobs:
         run: dotnet build RUNE.slnx -c Release --no-restore
       - name: Install pinned Playwright Chromium
         run: dotnet run --project services/rune/apps/rune-worker/Rune.Worker.csproj -c Release --no-build --no-restore -- --install-playwright
+      - name: Validate recovery with the installed Chromium driver
+        env:
+          RUNE_RECOVERY_WORKER_DLL: services/rune/apps/rune-worker/bin/Release/net10.0/Rune.Worker.dll
+        run: python3 scripts/verify_recovery_runtime.py --output-pdf "${RUNNER_TEMP}/rune-recovery-runtime.pdf"
       - name: Start real NATS JetStream
-        run: docker compose up -d --build --wait nats
+        run: |
+          docker compose up -d --build --wait nats
+          docker compose exec -T nats sh -ec 'test "$(id -u)" = 10001 && test -w /data/jetstream'
       - name: Test the complete solution
         run: dotnet test RUNE.slnx -c Release --no-build --no-restore --logger "console;verbosity=normal"
       - name: Run internal validation executable
@@ -159,6 +165,7 @@ jobs:
           python scripts/verify_compose_pipeline.py --output build/compose-evidence --skip-build
           docker compose up -d --wait
           python scripts/smoke.py
+          docker compose exec -T rune-worker python3 /validation/scripts/verify_studio_pipeline.py --api-url http://rune-api:8080 --output-pdf /tmp/rune/rune-studio-pipeline.pdf
           PYTHONPATH=services/rune/apps/rune-studio/src python scripts/verify_streamlit_apptest.py --api-url http://127.0.0.1:8080 --output build/studio-evidence
       - name: Verify multi-node resilience
         if: matrix.scenario == 'multi-node'

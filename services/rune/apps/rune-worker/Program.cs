@@ -17,6 +17,12 @@ if (args.Contains("--install-playwright", StringComparer.Ordinal))
     return;
 }
 
+if (args.Length > 0 && args[0] == "--validate-recovery-browser")
+{
+    await RecoveryBrowserProbe.RunAsync(args[1..]);
+    return;
+}
+
 var builder = Host.CreateApplicationBuilder(args);
 var dataRoot = builder.Configuration["RUNE_DATA_ROOT"] ?? "/data";
 var natsUrl = builder.Configuration["NATS_URL"] ?? "nats://localhost:4222";

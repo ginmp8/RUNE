@@ -10,7 +10,9 @@
 
 - use Dockerfile-compatible health checks, select the worker runtime build stage, and provide the version required by recovery validation;
 - align Studio AppTest and live validation with the six-tab and multi-output editor contract;
-- preserve Compose build failure output in multi-node diagnostics.
+- preserve Compose build failure output in multi-node diagnostics;
+- provision the non-root NATS account and JetStream storage ownership explicitly;
+- run recovery and Studio browser validation through the installed Playwright driver, preserving real DOM/PDF and readiness assertions without Chrome virtual-time CLI hangs.
 
 ## [0.18.0] - 2026-07-28
 

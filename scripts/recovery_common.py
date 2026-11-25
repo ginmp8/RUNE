@@ -50,12 +50,31 @@ def find_chromium(explicit: str | None = None) -> str:
 
 
 def run_chromium(html: str, *, executable: str | None, timeout_seconds: int, output_pdf: Path | None) -> tuple[str, bytes]:
-    chromium = find_chromium(executable)
+    worker_dll = os.environ.get("RUNE_RECOVERY_WORKER_DLL")
     with tempfile.TemporaryDirectory(prefix="rune-recovery-") as temporary:
         root = Path(temporary)
         html_path = root / "index.html"
         pdf_path = output_pdf or root / "output.pdf"
         html_path.write_text(html, encoding="utf-8")
+        if worker_dll:
+            dom_path = root / "rendered.html"
+            command = [
+                "dotnet", worker_dll, "--validate-recovery-browser",
+                str(html_path), str(dom_path), str(pdf_path.resolve()), str(timeout_seconds),
+            ]
+            override = executable or os.environ.get("RUNE_CHROMIUM_EXECUTABLE_PATH") or os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH")
+            if override:
+                command.append(find_chromium(override))
+            result = run_browser_command(command, timeout_seconds)
+            if result.returncode != 0 or not dom_path.is_file() or not pdf_path.is_file():
+                raise RuntimeError(f"Playwright recovery probe failed: {result.stderr.strip()}")
+            pdf = pdf_path.read_bytes()
+            if not pdf.startswith(b"%PDF") or len(pdf) < 10_000:
+                raise RuntimeError(f"Chromium produced an invalid PDF ({len(pdf)} bytes).")
+            return dom_path.read_text(encoding="utf-8"), pdf
+
+        # Retain the standalone Chromium command for historical host tooling.
+        chromium = find_chromium(executable)
         profile_path = root / "chromium-profile"
         base = [
             chromium,

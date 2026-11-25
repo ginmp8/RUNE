@@ -267,6 +267,12 @@ for path, images in expected_images.items():
 worker_dockerfile = read("services/rune/apps/rune-worker/Dockerfile")
 if "COPY VERSION /validation/VERSION" not in worker_dockerfile:
     errors.append("worker Dockerfile must copy the version consumed by its recovery validators")
+if "RUNE_RECOVERY_WORKER_DLL=/app/Rune.Worker.dll" not in worker_dockerfile:
+    errors.append("worker recovery validation must use the installed Playwright driver")
+nats_dockerfile = read("messaging/nats/server/Dockerfile")
+for marker in ("addgroup -S -g 10001 nats", "adduser -S -D -H -u 10001 -G nats nats", "chown -R 10001:10001 /data", "USER 10001:10001"):
+    if marker not in nats_dockerfile:
+        errors.append(f"NATS Dockerfile missing explicit non-root identity or storage ownership: {marker}")
 for compose_path in ("docker-compose.yml", "docker-compose.resilience.yml"):
     definition = yaml.safe_load(read(compose_path))
     for name, service in definition.get("services", {}).items():

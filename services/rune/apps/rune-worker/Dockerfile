@@ -6,7 +6,8 @@ RUN dotnet restore services/rune/apps/rune-worker/Rune.Worker.csproj \
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0.10 AS runtime
 WORKDIR /app
-ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
+    RUNE_RECOVERY_WORKER_DLL=/app/Rune.Worker.dll
 COPY --from=build /app/publish .
 COPY services/rune/THIRD_PARTY_NOTICES.md /app/THIRD_PARTY_NOTICES.md
 COPY services/rune/licenses /app/licenses
