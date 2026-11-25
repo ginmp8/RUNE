@@ -1,0 +1,11 @@
+# Keep pinned upstream assets and hash-verified compatibility fixtures byte-exact.
+* text=auto eol=lf
+services/rune/assets/vendor/** -text
+services/rune/tests/compatibility/reference-feature-cases.1.8.7.json -text
+*.pdf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
+# Preserve Windows launcher bytes.
+*.bat -text

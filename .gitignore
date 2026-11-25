@@ -1,0 +1,34 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.venv/
+.env
+*.user
+*.suo
+artifacts/
+# Local development and generated outputs
+**/node_modules/
+**/TestResults/
+**/.coverage
+**/coverage/
+/build/
+/dist/
+/.artifacts/
+.env.*
+!.env.example
+*.py[cod]
+*.log
+*.tmp
+*.nupkg
+*.snupkg
+*.zip
+/TREE.txt
+/MANIFEST.sha256
+/SBOM.cdx.json
+/VULNERABILITY_SCAN.json
+# Bundled runtime assets under services/rune/assets/vendor are intentional source inputs.
